@@ -1,5 +1,5 @@
 import chai from 'chai';
-import Booking from '../src/Booking';
+import Booking from '../src/BookingRepository';
 import bookingTestData from '../data/bookings-test-data'
 const expect = chai.expect;
 

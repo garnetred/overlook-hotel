@@ -1,10 +1,10 @@
 import domUpdates from './domUpdates'
 
 
-class Booking {
+class BookingRepository {
   constructor() {
 
   }
 }
 
-export default Booking;
+export default BookingRepository;
