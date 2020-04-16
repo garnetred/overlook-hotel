@@ -1,3 +1,5 @@
+//add multiple data per date to test multiple bookings on same date
+
 const bookingTestData = [{
     "id": "5fwrgu4i7k55hl6t8",
     "userID": 1,

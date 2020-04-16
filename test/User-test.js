@@ -5,7 +5,7 @@ const expect = chai.expect;
 
 describe('See if the tests are running', function() {
 let user1, user2 ,user3;
-
+//create variable for date 
 
 beforeEach(() => {
   user1 = new User();
