@@ -17,7 +17,11 @@ const userTestData = [{
   {
     id: 5,
     name: "Rhiannon Little"
-  }
+  },
+   {
+     id: 6,
+     name: "Jimmy Kimmel"
+   }
 ];
 
 export default userTestData;

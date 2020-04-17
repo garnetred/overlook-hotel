@@ -8,7 +8,32 @@ import $ from 'jquery';
 import './css/base.scss';
 
 // An example of how you tell webpack to use an image (also need to link to it in the index.html)
-import './images/turing-logo.png'
-import './images/hotel-login-page.jpg'
+import './images/turing-logo.png';
+import './images/hotel-login-page.jpg';
+// import '../favicon.ico';
 
-console.log('This is the JavaScript entry file - your code begins here.');
+
+//variables
+//currentDate variable
+//user
+//BookingRepository
+//bookings
+//rooms
+
+//functions
+//fetch data from users endpoint
+//fetch data from bookings endpoint
+//fetch data from rooms endpoint
+//invoke function that will then instantiate all three items
+
+//event listeners
+//customer search button
+//manager search button (to search through users)
+//customer make booking button
+//manager make booking button
+//click handlers
+//login button
+//logout button
+//dropdown
+
+console.log('The code is running.');
