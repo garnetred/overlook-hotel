@@ -17,6 +17,10 @@ class BookingRepository {
   calculateRoomsBookedPerDay() {
 
   }
+
+  findAvailableRoomsByDateAndType() {
+    //should find the rooms that are currently available on a particular date based on the ones that have bookings
+  }
 }
 
 export default BookingRepository;

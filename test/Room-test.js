@@ -1,6 +1,8 @@
 import chai from 'chai';
 import Room from '../src/Room';
 import roomTestData from '../data/rooms-test-data'
+import domUpdates from '../src/domUpdates'
+
 const expect = chai.expect;
 
 describe('See if the tests are running', function() {
