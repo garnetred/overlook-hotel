@@ -1,20 +1,26 @@
 import chai from 'chai';
-import User from '../src/User';
-import userTestData from '../data/users-test-data'
 const expect = chai.expect;
 import spies from 'chai-spies';
+
+import User from '../src/User';
+import userTestData from '../data/users-test-data'
 import domUpdates from '../src/domUpdates'
 import bookingTestData from '../data/bookings-test-data'
+import roomTestData from '../data/rooms-test-data'
+
 chai.use(spies);
 
-describe('See if the tests are running', function() {
-  let user1, user2, user3;
-  //create variable for date
+describe('User', function() {
+  let user1, user2, user3, user4, user6;
+  let currentDate;
 
   beforeEach(() => {
     user1 = new User(userTestData[0]);
     user2 = new User(userTestData[1]);
     user3 = new User(userTestData[2]);
+    user4 = new User(userTestData[3]);
+    user6 = new User(userTestData[5])
+    currentDate = "2020/02/05";
   });
 
   it('should be an instance of User', function() {
@@ -63,21 +69,18 @@ describe('See if the tests are running', function() {
     expect(user3.firstName).to.equal("Kelvin");
   })
 
-  it.only('should calculate total spent on all reservations', function() {
-    user1.findAllBookings();
-    // user1.calculateTotal();
-    // user2.calculateTotal();
-    // user3.calculateTotal();
+  it('should calculate total spent on all reservations', function() {
 
     expect(user1.calculateTotal()).to.equal(512.26);
-    // expect(user2.firstName).to.equal("Rocio");
-    // expect(user3.firstName).to.equal("Kelvin");
+    expect(user2.calculateTotal()).to.equal(1132.34);
+    expect(user3.calculateTotal()).to.equal(1063.68);
+    expect(user6.calculateTotal()).to.equal(0);
   })
 
   it('should be able to find all bookings', function() {
     user1.findAllBookings();
-    // user2.calculateTotal();
-    // user3.calculateTotal();
+    user2.findAllBookings();
+    user3.findAllBookings();
 
     expect(user1.allBookings).to.deep.equal([{
         id: "5fwrgu4i7k55hl6t8",
@@ -94,8 +97,90 @@ describe('See if the tests are running', function() {
         roomServiceCharges: []
       }
     ]);
-    // expect(user2.firstName).to.equal("Rocio");
-    // expect(user3.firstName).to.equal("Kelvin");
+
+  })
+
+  it('should be able to find all rooms in which a user has stayed', function() {
+    user1.findAllRooms();
+
+    expect(user1.allRooms).to.deep.equal([{
+        number: 5,
+        roomType: "single room",
+        bidet: true,
+        bedSize: "queen",
+        numBeds: 2,
+        costPerNight: 340.17
+      },
+      {
+        number: 12,
+        roomType: "single room",
+        bidet: false,
+        bedSize: "twin",
+        numBeds: 2,
+        costPerNight: 172.09
+      }
+    ])
+  })
+
+  it('should be able to find all current bookings for today\'s date', function() {
+    user1.findCurrentBookings(currentDate);
+    user4.findCurrentBookings(currentDate);
+
+    expect(user1.currentBookings).to.deep.equal([{
+      id: "5fwrgu4i7k55hl6t8",
+      userID: 1,
+      date: "2020/02/05",
+      roomNumber: 12,
+      roomServiceCharges: []
+    }])
+
+    expect(user4.currentBookings).to.deep.equal([{
+        id: "5fwrgu4i7k55hl6wc",
+        userID: 4,
+        date: "2020/02/05",
+        roomNumber: 23,
+        roomServiceCharges: []
+      },
+      {
+        id: "5fwrgu4i7k55hl6ye",
+        userID: 4,
+        date: "2020/02/05",
+        roomNumber: 8,
+        roomServiceCharges: []
+      }
+    ])
+  })
+
+  it('should be able to find all past bookings', function() {
+    expect(user1.findPastBookings(currentDate)).to.deep.equal([{
+      id: "5fwrgu4i7k55hl7cu",
+      userID: 1,
+      date: "2020/01/09",
+      roomNumber: 5,
+      roomServiceCharges: []
+    }])
+
+    expect(user4.findPastBookings(currentDate)).to.deep.equal([{
+        id: "5fwrgu4i7k55hl7cd",
+        userID: 4,
+        date: "2020/02/07",
+        roomNumber: 5,
+        roomServiceCharges: []
+      }, {
+        id: "5fwrgu4i7k55hl6vc",
+        userID: 4,
+        date: "2020/01/18",
+        roomNumber: 18,
+        roomServiceCharges: []
+      },
+      {
+        id: "5fwrgu4i7k55hl6vn",
+        userID: 4,
+        date: "2020/02/20",
+        roomNumber: 1,
+        roomServiceCharges: []
+      }
+    ])
   })
 
 

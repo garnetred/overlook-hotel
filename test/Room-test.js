@@ -5,7 +5,7 @@ import domUpdates from '../src/domUpdates'
 
 const expect = chai.expect;
 
-describe('See if the tests are running', function() {
+describe('Room', function() {
   let room1, room2, room3;
   //create variable for date;
 

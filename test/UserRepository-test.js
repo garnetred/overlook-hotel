@@ -7,7 +7,7 @@ import domUpdates from '../src/domUpdates'
 chai.use(spies);
 
 
-describe('See if the tests are running', function() {
+describe('UserRepository', function() {
 let users, username;
 //create variable for date
 chai.spy.on(domUpdates, ['login'], ()=>true);

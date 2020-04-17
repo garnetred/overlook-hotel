@@ -1,15 +1,17 @@
 import domUpdates from './domUpdates';
 import bookingTestData from '../data/bookings-test-data'
+import roomTestData from '../data/rooms-test-data'
 
 class User {
   constructor(userData) {
     this.id = userData.id;
     this.name = userData.name;
     this.firstName = this.getFirstName();
-    this.allBookings = [];
+    this.allBookings = this.findAllBookings();
     this.currentBookings = null;
     this.username = `customer${userData.id}`
     this.password = 'overlook2020';
+    this.allRooms = this.findAllRooms();
 
   }
 
@@ -18,31 +20,46 @@ class User {
   }
 
   calculateTotal() {
-    //should calculate total spent on all reservations
-    //should include new booking information
-    //should cycle through booking test data first to look for all bookings
-    let bookedRoom;
-    if (this.allBookings.length > 0) {
-      console.log('in here')
-      let bookedRoom = this.allBookings.filter(booking => booking.roomNumber);
-      //I want the rooms that were booked so I can go through the array and look for them, they don't
-      console.log(bookedRoom)
+    if (this.allRooms === 0) {
+      return 0;
     }
-    return bookedRoom
+    let totalCost = this.allRooms.reduce((total, room) =>{
+      total += room.costPerNight;
+      return Number(total.toFixed(2));
+    }, 0)
+
+    return totalCost;
   }
 
   findAllBookings() {
-    //should find past bookings for this user and add to the pastBookings array
-    //needs to iterate through booking test data and retrieve all data with the correct userID
-    this.allBookings = bookingTestData.filter(booking => booking.userID === this.id);
+    return bookingTestData.filter(booking => booking.userID === this.id);
   }
 
-  findCurrentBookings() {
-  //based on today's date, cycles through bookings array to check for a booking for this user that matches that date
+//needs refactoring to get rid of nested if statement
+  findAllRooms() {
+    let bookedRoomNumbers;
+    let matchedRooms = [];
+    if (this.allBookings.length > 0) {
+      bookedRoomNumbers = this.allBookings.filter(booking => booking.roomNumber).map(booking => booking.roomNumber);
+      roomTestData.map(room => {
+        bookedRoomNumbers.forEach(number =>  {
+          if (room.number === number) {
+            matchedRooms.push(room)
+          }
+        });
+      });
+    }
+    return matchedRooms;
   }
 
-  findPastBookings() {
-    //cycles through allBookings to create an array of all pastBookings
+  findCurrentBookings(date) {
+    this.currentBookings = this.allBookings.filter(booking => booking.date === date);
+
+  }
+
+  findPastBookings(date) {
+    let pastBookings = this.allBookings.filter(booking => booking.date !== date);
+    return pastBookings;
   }
 
 }
