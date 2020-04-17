@@ -1,6 +1,7 @@
 import domUpdates from './domUpdates';
-import bookingTestData from '../data/bookings-test-data'
 import roomTestData from '../data/rooms-test-data'
+import bookingTestData from '../data/bookings-test-data'
+
 
 class User {
   constructor(userData) {

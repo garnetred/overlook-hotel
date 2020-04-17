@@ -6,7 +6,7 @@ import spies from 'chai-spies';
 import domUpdates from '../src/domUpdates'
 chai.use(spies);
 
-describe('See if the tests are running', function() {
+describe('BookingRepository', function() {
   let booking;
   //create variable for date
 

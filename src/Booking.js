@@ -11,9 +11,10 @@ class Booking {
   }
 
   //could iterate through user array rather than passing everything in
-  
+
   matchUser() {
     //maybe this looks through all of the users to find the object that contains the user who actually made the booking
+    //is this redundant somehow? not sure hwen I would even need this 
   }
 }
 
