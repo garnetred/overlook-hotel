@@ -21,6 +21,7 @@ class Room {
       'date': date,
       'roomNumber': this.number
     }
+
     fetch(url, {
         method: 'POST',
         headers: {
@@ -44,11 +45,6 @@ class Room {
     }
 
   }
-
-  // deleteBooking() {
-  //   //maybe this goes here if the current user's username is actually "manager";
-  //   //iterate through the
-  // }
 }
 
 export default Room;
