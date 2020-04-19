@@ -1,13 +1,8 @@
-// This is the JavaScript entry file - your code begins here
-// Do not delete or rename this file ********
-
-// An example of how you import jQuery into a JS file if you use jQuery in that file
 import $ from 'jquery';
-
-// An example of how you tell webpack to use a CSS (SCSS) file
 import './css/base.scss';
 
-// An example of how you tell webpack to use an image (also need to link to it in the index.html)
+import domUpdates from './domUpdates';
+
 import './images/turing-logo.png';
 import './images/hotel-login-page.jpg';
 // import '../favicon.ico';
@@ -35,5 +30,26 @@ import './images/hotel-login-page.jpg';
 //login button
 //logout button
 //dropdown
-
+// let user;
+// let userRepository;
+// let room;
+// let booking;
+// let bookingRepository;
+// let currentDate = "2020/02/05";
+// let currentUser;
 console.log('The code is running.');
+
+function getData() {
+  Promise.all([
+      fetch('https://fe-apps.herokuapp.com/api/v1/overlook/1904/users/users').then(response => response.json()),
+      fetch('https://fe-apps.herokuapp.com/api/v1/overlook/1904/rooms/rooms').then(response => response.json()),
+      fetch('https://fe-apps.herokuapp.com/api/v1/overlook/1904/bookings/bookings').then(response => response.json()),
+    ]).then(data => domUpdates.instantiateData(data[0].users, data[1].rooms, data[2].bookings))
+    .catch(err => console.error(err));
+}
+
+$('.login-form').submit(function(event) {
+  event.preventDefault();
+  domUpdates.login();
+});
+$(window).on("load", getData);
