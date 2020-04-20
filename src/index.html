@@ -25,7 +25,7 @@
         <li><h1 class="logout-text">Logout</h1></li>
       </ul>
         </nav>
-    <section class="customer-dashboard">
+    <section class="customer-dashboard hide">
       <h3 class="customer-welcome-message">Welcome, customer</h3>
       <section class="customer-dashboard-container">
       <main class="customer-all-bookings">
@@ -47,8 +47,6 @@
       </aside>
     </section>
     </section>
-    <section class="customer-booking-search hide">
-    </section>
   </section>
   <section class="manager-page">
     <nav class="manager-navbar">
@@ -58,7 +56,7 @@
         <li><h1 class="logout-text">Logout</h1></li>
       </ul>
     </nav>
-    <section class="manager-dashboard">
+    <section class="manager-dashboard hide">
       <h3 class="manager-welcome-message">Welcome, Overlook Hotel Manager</h3>
       <section class="manager-dashboard-container">
       <main class="manager-daily-info">
@@ -74,15 +72,74 @@
       </main>
       <aside class="manager-guest-search-container">
 
+
         <label><input type="text" placeholder="Search Guests" class="search-guests-input"  aria-label="Search"></label>
 
         <button type="button" class="manager-search-guests-button">GO</button>
       </aside>
     </section>
-    <section class="manager-booking-search-for-customer hide">
+  </section>
+    <section class="manager-customer-search">
+      <section class="manager-customer-info-container">
+      <aside>
+        <p>Sarah has spent</p>
+        <span>$$$</span>
+        <p>at Overlook Hotel</p>
+      </aside>
+      <main>
+      <h3>Upcoming Bookings</h3>
+      <section class="individual-booking-info">
+      <p>Date</p>
+      <p>Room Number</p>
+      <p>Room Type</p>
+      <p>Cost:</p>
+      <button>Cancel</button>
     </section>
-    <section class="manager-customer-search hide">
+      <h3>Past Bookings</h3>
+      <section class="individual-booking-info">
+      <p>Date</p>
+      <p>Room Number</p>
+      <p>Room Type</p>
+      <p>Cost:</p>
     </section>
+    </main>
+    </section>
+    </section>
+  </section>
+  <section class="booking-search hide">
+    <nav>
+    </nav>
+    <main class="booking-search-container">
+    <section class="booking-search-filter">
+      <form id="booking-search-form">
+        <section class="check-in-date">
+          <label for="date-search" class="date-search">Check-In Date</label>
+          <input type="date" aria-label="date-search" class="date">
+        </section>
+        <section class="booking-checkbox-options">
+          <p>Room Types</p>
+          <label for="junior-suite"><input type="checkbox" id="junior-suite" name="junior-suite" >Junior Suite </label>
+
+          <label for="residential-suite"><input type="checkbox" id="residential-suite" name="residential-suite">Residential Suite</label>
+          <button type="submit">Search</button>
+        </form>
+      </section>
+      <section class="booking-search-results">
+        <h3>Search Results</h3>
+        <section class="individual-search-results">
+          <figure>
+            ...
+          </figure>
+          <article>
+            <p>This junior suite offers...
+              <span class="booking-price">Cost</span>
+            </p>
+          </article>
+          <button id="customer-book-room-button">Book</button>
+        </section>
+      </section>
+    </section>
+  </main>
   </section>
 
 
