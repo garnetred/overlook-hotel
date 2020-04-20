@@ -1,13 +1,15 @@
 import chai from 'chai';
 import Room from '../src/Room';
+import User from '../src/User';
 import roomTestData from '../data/rooms-test-data'
+import userTestData from '../data/users-test-data'
 import bookingTestData from '../data/bookings-test-data'
 import domUpdates from '../src/domUpdates'
 
 const expect = chai.expect;
 
 describe('Room', function() {
-  let room1, room2, room3, room4, room5, currentDate, diffDate, finalDate;
+  let room1, room2, room3, room4, room5, currentDate, diffDate, finalDate, user1, user2;
   //create variable for date;
 
   beforeEach(() => {
@@ -17,11 +19,20 @@ describe('Room', function() {
     room3 = new Room(roomTestData[2]);
     room4 = new Room(roomTestData[3]);
     room5 = new Room(roomTestData[4]);
+    user1 = new User(userTestData[0]);
+    user2 = new User(userTestData[1]);
     currentDate = "2020/02/05"; //any room
     diffDate = "2020/02/07"; //room 5
     finalDate = '2020/02/17'; //room 4
+    chai.spy.on(room1, ['createNewBooking'], () => true);
+    chai.spy.on(room2, ['createNewBooking'], () => true);
   });
 
+
+  afterEach(() => {
+    chai.spy.restore(room1);
+    chai.spy.restore(room2);
+  });
   it('should be an instance of Room', function() {
     expect(room1).to.be.an.instanceof(Room);
     expect(room2).to.be.an.instanceof(Room);
@@ -75,5 +86,11 @@ describe('Room', function() {
     expect(room4.isAvailable).to.equal(false);
     expect(room5.isAvailable).to.equal(false);
   });
+
+  it('should create a new booking for a particular user and date', function() {
+
+    expect(room1.createNewBooking(user1, currentDate)).to.equal(true);
+    expect(room2.createNewBooking(user2, finalDate)).to.equal(true);
+  })
 
 });

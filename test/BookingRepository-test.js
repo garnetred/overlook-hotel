@@ -17,6 +17,13 @@ describe('BookingRepository', function() {
 
     currentDate = '2020/02/05';
     secondDate = "2020/02/07";
+    chai.spy.on(booking, ['deleteBooking'], () => true);
+    chai.spy.on(booking2, ['deleteBooking'], () => true);
+  });
+
+  afterEach(() => {
+    chai.spy.restore(booking);
+    chai.spy.restore(booking2);
   });
 
   it('should be an instance of Booking Booking Repository', function() {
@@ -208,6 +215,11 @@ describe('BookingRepository', function() {
 
     expect(booking2.findAvailableRoomsByDateAndType(roomTestData, 'junior suite')).to.deep.equal([])
 
+  });
+
+  it('should successfully delete a booking', function() {
+    expect(booking.deleteBooking('5fwrgu4i7k55hl72u')).to.equal(true);
+    expect(booking2.deleteBooking('5fwrgu4i7k55hl88k')).to.equal(true);
   });
 
 });

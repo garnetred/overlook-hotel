@@ -36,44 +36,34 @@ class BookingRepository {
   }
 
   findAvailableRoomsByDateAndType(rooms, type) {
-    //should find the rooms that are currently available on a particular date based on the ones that have bookings
-    //trying to find bookings that are past the current date
-    //wait, we're just looking for a particular date that has passed, right? so this is stupid
-    //maybe using this.daily bookings somehow to find those room numbers, then pull the rooms that don't have those numbers and put them in an array
-    //maybe create the opposite of the daily bookings - the available rooms array for a specific date?
-    //that's what I was trying to do....
-    //can I just create an array of room numbers rather than filtering through everything?
     let availableRoomsByDate = [];
     let availableRoomsByDateAndType = [];
     let bookedRoomNumbers = this.dailyBookings.map(booking => booking.roomNumber)
 
     let totalRooms = rooms.filter(room => {
-      this.dailyBookings.forEach(number => {        console.log(room.number !== number)
+      return this.dailyBookings.forEach(number => {
         room.number !== number
       })
     });
 
-    console.log(totalRooms)
-    // rooms.filter(room => {
-    //   return bookedRoomNumbers.forEach(booking => {
-    //     console.log(room.number, booking)
-    //     if (room.number !== booking && !availableRoomsByDate.includes(room) && !availableRoomsByDate.includes(booking)) {
-    //       availableRoomsByDate.push(room);
-    //     }
-    //   })
-    // })
-    //this logic is wrong - it'll always add all of the rooms to the array because when we're on room, say, 6, it won't match one of the items in the array (23), even if that is a different item that does have a match.
-    // console.log('available rooms', availableRoomsByDate)
     availableRoomsByDate.filter(room => {
       if (room.roomType === type) {
         availableRoomsByDateAndType.push(room)
       }
     });
-    // console.log('date and type', availableRoomsByDateAndType);
     return availableRoomsByDateAndType;
   }
 
-
+  deleteBooking(id) {
+    let url = `https://fe-apps.herokuapp.com/api/v1/overlook/1904/bookings/bookings${id}`
+    return fetch(url, {
+        method: 'DELETE',
+      })
+      .then(response => response.json())
+      .then(response => console.log(response))
+      .catch(err => console.error(err))
+  }
 }
+
 
 export default BookingRepository;
