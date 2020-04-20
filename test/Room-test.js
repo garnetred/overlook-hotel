@@ -33,6 +33,7 @@ describe('Room', function() {
     chai.spy.restore(room1);
     chai.spy.restore(room2);
   });
+  
   it('should be an instance of Room', function() {
     expect(room1).to.be.an.instanceof(Room);
     expect(room2).to.be.an.instanceof(Room);

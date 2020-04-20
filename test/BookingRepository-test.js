@@ -190,12 +190,11 @@ describe('BookingRepository', function() {
 
   });
 
-  it('should find available rooms by date', function() {
+  it('should find available rooms by date and type', function() {
     booking.findDailyBookings(currentDate);
     booking2.findDailyBookings(secondDate);
-    // console.log(booking2.dailyBookings)
 
-    expect(booking.findAvailableRoomsByDateAndType(roomTestData, 'suite')).to.deep.equal([{
+    expect(booking.findAvailableRoomsByDateAndType(roomTestData, 'suite', currentDate)).to.deep.equal([{
         number: 2,
         roomType: "suite",
         bidet: false,
@@ -213,7 +212,7 @@ describe('BookingRepository', function() {
       }
     ]);
 
-    expect(booking2.findAvailableRoomsByDateAndType(roomTestData, 'junior suite')).to.deep.equal([])
+    expect(booking2.findAvailableRoomsByDateAndType(roomTestData, 'junior suite', currentDate)).to.deep.equal([])
 
   });
 

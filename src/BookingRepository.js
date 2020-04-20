@@ -35,22 +35,38 @@ class BookingRepository {
     return Number(decimal);
   }
 
-  findAvailableRoomsByDateAndType(rooms, type) {
+  findAvailableRoomsByDateAndType(rooms, type, date) {
     let availableRoomsByDate = [];
     let availableRoomsByDateAndType = [];
     let bookedRoomNumbers = this.dailyBookings.map(booking => booking.roomNumber)
+    let unavailableRooms = this.allBookings.filter(booking => booking.date === date);
+    console.log('unavailable', unavailableRooms)
+    //this is in the regular bookings array though, would need to convert to the rooms one
 
-    let totalRooms = rooms.filter(room => {
-      return this.dailyBookings.forEach(number => {
-        room.number !== number
-      })
-    });
+    //need to iterate through both bookings and rooms by room number
+    //because it's nested everything is added more than once
+    // availableRoomsByDate = rooms.filter(room => {
+    // return this.allBookings.filter(booking => {
+    //     return booking.date !== date && room.number !== booking.roomNumber
+    //   })
+    // })
 
-    availableRoomsByDate.filter(room => {
-      if (room.roomType === type) {
-        availableRoomsByDateAndType.push(room)
-      }
-    });
+    availableRoomsByDate = rooms.filter(room => unavailableRooms.includes(room));
+
+
+    // rooms.forEach(room => {
+    //   return bookedRoomNumbers.forEach(number => {
+    //     if (room.number !== number) {
+    //       availableRoomsByDate.push(room)
+    //     }
+    //   })
+    // })
+    console.log('available rooms', availableRoomsByDate)
+    //maybe I should use all bookings and just pass in the date
+
+    availableRoomsByDateAndType = availableRoomsByDate.filter(room => room.roomType.includes(type));
+
+    // console.log(availableRoomsByDateAndType);
     return availableRoomsByDateAndType;
   }
 
