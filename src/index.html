@@ -1,30 +1,171 @@
 <!DOCTYPE html>
 <html lang="en-US">
 <meta charset="utf-8">
-  <head>
-    <title>Overlook Hotel</title>
-    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
-  </head>
-  <body>
-    <section class="login-page">
-      <section class="form-background">
-        <form class="login-form">
-       <label for="username">Username</label>
-       <input type="text" id="username" name="username">
-       <label for="password">Password</label>
-       <input type="text" id="password" name="password">
-       <button id="login-button" type="submit">Submit</button>
-        </form>
+
+<head>
+  <title>Overlook Hotel</title>
+  <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+</head>
+
+<body>
+  <section class="login-page">
+    <section class="form-background">
+      <form class="login-form">
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username" autocomplete="username" required>
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" autocomplete="current-password" required>
+        <button id="login-button" type="submit">Submit</button>
+      </form>
+    </section>
+  </section>
+  <section class="customer-page hide">
+    <nav class="customer-navbar">
+      <ul>
+        <li><button type="button" id="booking-search-page" class="booking">
+            <h1>Reserve A Room</h1>
+          </button></li>
+        <li>
+          <h1 class="account-text">My Account</h1>
+        </li>
+        <li>
+          <h1 class="logout-text">Logout</h1>
+        </li>
+      </ul>
+    </nav>
+    <section class="customer-dashboard hide">
+      <h3 class="customer-welcome-message">Welcome, customer</h3>
+      <section class="customer-dashboard-container">
+        <main class="customer-all-bookings">
+          <h3 class="past-bookings">Past Bookings</h3>
+          <section class="past-bookings-info">
+            <section class="individual-booking-info">
+              <p>Date:</p>
+              <p>Cost:</p>
+              <p>Something:</p>
+            </section>
+          </section>
+        </main>
+        <aside class="customer-information">
+          <section class="customer-total">
+            <p>You have spent</p>
+            <span> $$$ </span>
+            <p> in bookings </p>
+          </section>
+        </aside>
       </section>
     </section>
-    <section class="user-dashboard hide">
-    </section>
+  </section>
+  <section class="manager-page hide">
+    <nav class="manager-navbar">
+      <ul>
+        <li><button type="button" id="booking-search-page" class="booking">
+            <h1>View All Rooms</h1>
+          </button></li>
+        <li>
+          <h1 class="account-text">My Account</h1>
+        </li>
+        <li>
+          <h1 class="logout-text">Logout</h1>
+        </li>
+      </ul>
+    </nav>
     <section class="manager-dashboard hide">
-      <img src="./images/turing-logo.png" alt="turing logo" height="100px" width="100px">
+      <h3 class="manager-welcome-message">Welcome, Overlook Hotel Manager</h3>
+      <section class="manager-dashboard-container">
+        <main class="manager-daily-info">
+          <h3 class="manager-daily-overview">Daily Overview</h3>
+          <section class="all-manager-daily-info">
+            <section class="manager-info">
+              <p>Available Rooms:<span>20</span></p>
+              <p>Total Revenue: <span>$600</span></p>
+              <p>Percentage of Rooms Occupied: <span>90%</span></p>
+              <p></p>
+            </section>
+          </section>
+        </main>
+        <aside class="manager-guest-search-container">
+
+
+          <label><input type="text" placeholder="Search Guests" class="search-guests-input" aria-label="Search"></label>
+
+          <button type="button" class="manager-search-guests-button">GO</button>
+        </aside>
+      </section>
     </section>
+    <section class="manager-customer-search hide">
+      <section class="manager-search-items">
+        <h3>Sarah MacLaughlan</h3>
+        <button class="manager-book-room">Book A Room</button>
+
+        <label><input type="text" placeholder="Search Guests" class="search-guests-input" aria-label="Search"></label>
+        <button type="button" class="manager-search-guests-button">GO</button>
+      </section>
+      <section class="manager-customer-info-container">
+        <aside>
+          <p>Sarah has spent</p>
+          <span>$$$</span>
+          <p>at Overlook Hotel</p>
+        </aside>
+        <main>
+          <h3>Upcoming Bookings</h3>
+          <section class="individual-booking-info">
+            <p>Date</p>
+            <p>Room Number</p>
+            <p>Room Type</p>
+            <p>Cost:</p>
+            <button>Cancel</button>
+          </section>
+          <h3>Past Bookings</h3>
+          <section class="individual-booking-info">
+            <p>Date</p>
+            <p>Room Number</p>
+            <p>Room Type</p>
+            <p>Cost:</p>
+          </section>
+        </main>
+      </section>
+    </section>
+  </section>
+  <section class="booking-search hide">
+    <nav>
+    </nav>
+    <main class="booking-search-container">
+      <section class="booking-search-filter">
+        <form id="booking-search-form">
+          <section class="check-in-date">
+            <label for="date-search" class="date-search">Check-In Date</label>
+            <input type="date" aria-label="date-search" class="date">
+          </section>
+          <section class="booking-checkbox-options">
+            <p>Room Types</p>
+            <label for="junior-suite"><input type="checkbox" id="junior-suite" name="junior-suite">Junior Suite </label>
+
+            <label for="residential-suite"><input type="checkbox" id="residential-suite" name="residential-suite">Residential Suite</label>
+            <button type="submit">Search</button>
+        </form>
+      </section>
+      <section class="booking-search-results">
+        <h3>Search Results</h3>
+        <section class="individual-search-results">
+          <figure>
+            ...
+          </figure>
+          <article>
+            <p>This junior suite offers...
+              <span class="booking-price">Cost</span>
+            </p>
+          </article>
+          <button id="customer-book-room-button">Book</button>
+        </section>
+      </section>
+  </section>
+  </main>
+  </section>
 
 
 
-    <!-- Do not include the index.js or main.bundle.js file here - it is done automatically by the webpack server -->
-  </body>
+  <!-- Do not include the index.js or main.bundle.js file here - it is done automatically by the webpack server -->
+</body>
+
 </html>
