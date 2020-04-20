@@ -11,7 +11,7 @@ let room;
 let booking;
 let bookingRepository;
 let currentDate = "2020/02/05";
-let currentUser;
+let currentUser = null;
 let userID;
 let allUsers = [];
 
@@ -64,7 +64,7 @@ const domUpdates = {
 
     allUsers.forEach(user => {
       if (user.username === $('#username').val() && user.password === 'overlook2020')  {
-        userID = user.id;
+        currentUser = user;
         console.log('success')
         return;
       } else {

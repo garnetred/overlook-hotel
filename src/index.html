@@ -6,7 +6,7 @@
     <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
   </head>
   <body>
-    <section class="login-page">
+    <section class="login-page hide">
       <section class="form-background">
         <form class="login-form">
        <label for="username">Username</label>
@@ -17,11 +17,73 @@
         </form>
       </section>
     </section>
-    <section class="user-dashboard hide">
+    <section class="customer-page hide">
+      <nav class="customer-navbar">
+        <ul>
+        <li><button type="button" id="booking-search-page" class="booking"><h1>Reserve A Room</h1></button></li>
+        <li><h1 class="account-text">My Account</h1></li>
+        <li><h1 class="logout-text">Logout</h1></li>
+      </ul>
+        </nav>
+    <section class="customer-dashboard">
+      <h3 class="customer-welcome-message">Welcome, customer</h3>
+      <section class="customer-dashboard-container">
+      <main class="customer-all-bookings">
+        <h3 class="past-bookings">Past Bookings</h3>
+        <section class="past-bookings-info">
+        <section class="individual-booking-info">
+          <p>Date:</p>
+          <p>Cost:</p>
+          <p>Something:</p>
+        </section>
+      </section>
+      </main>
+      <aside class="customer-information">
+        <section class="customer-total">
+          <p>You have spent</p>
+          <span> $$$ </span>
+          <p> in bookings </p>
+        </section>
+      </aside>
     </section>
-    <section class="manager-dashboard hide">
-      <img src="./images/turing-logo.png" alt="turing logo" height="100px" width="100px">
     </section>
+    <section class="customer-booking-search hide">
+    </section>
+  </section>
+  <section class="manager-page">
+    <nav class="manager-navbar">
+      <ul>
+        <li><button type="button" id="booking-search-page" class="booking"><h1>View All Rooms</h1></button></li>
+        <li><h1 class="account-text">My Account</h1></li>
+        <li><h1 class="logout-text">Logout</h1></li>
+      </ul>
+    </nav>
+    <section class="manager-dashboard">
+      <h3 class="manager-welcome-message">Welcome, Overlook Hotel Manager</h3>
+      <section class="manager-dashboard-container">
+      <main class="manager-daily-info">
+        <h3 class="manager-daily-overview">Daily Overview</h3>
+        <section class="all-manager-daily-info">
+        <section class="manager-info">
+          <p>Available Rooms:<span>20</span></p>
+          <p>Total Revenue: <span>$600</span></p>
+          <p>Percentage of Rooms Occupied: <span>90%</span></p>
+          <p></p>
+        </section>
+      </section>
+      </main>
+      <aside class="manager-guest-search-container">
+
+        <label><input type="text" placeholder="Search Guests" class="search-guests-input"  aria-label="Search"></label>
+
+        <button type="button" class="manager-search-guests-button">GO</button>
+      </aside>
+    </section>
+    <section class="manager-booking-search-for-customer hide">
+    </section>
+    <section class="manager-customer-search hide">
+    </section>
+  </section>
 
 
 
