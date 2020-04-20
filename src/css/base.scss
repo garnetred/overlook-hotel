@@ -14,7 +14,6 @@ body {
   display: none;
   // visibility: hidden;
 }
-
 /* login page */
 input {
   display: block;
@@ -44,6 +43,7 @@ input {
   position: absolute;
   top: 25%;
   font-size: $large-font-size;
+
   #login-button {
     margin-top: 10%;
     padding: 10px;
@@ -64,22 +64,24 @@ input {
   background-size: cover;
   // overflow: hidden;
 }
-
 /* customer pages */
 .customer-navbar {
-@include navbar;
+  @include navbar;
 }
 
 ul {
-@include list;
+  @include list;
+
   li {
     @include main-font-info;
     margin-left: 7%;
     text-align: right;
+
     &:hover {
       color: #AE2E06;
       text-shadow: -4px 4px 4px rgba(0, 0, 0, 0.25);
     }
+
     &:active {
       border-bottom: 2px solid black;
     }
@@ -100,14 +102,13 @@ ul {
 .customer-page {
   height: 100%;
 }
-
 /* customer dashboard */
-
 .customer-dashboard {
   position: absolute;
   width: 100%;
   height: 100%;
   top: 15%;
+
   .customer-dashboard-container {
     height: 85%;
     display: flex;
@@ -116,18 +117,18 @@ ul {
   }
 }
 
-
 .customer-welcome-message {
   margin: 0 0 3% 10%;
 }
 
 .customer-all-bookings {
-@include blue-box;
+  @include blue-box;
 }
 
 .customer-information {
   width: 35%;
   margin: 0 10% 0 15%;
+
   .customer-total {
     background: #7F48C5;
     border-radius: $slight-curve;
@@ -136,12 +137,13 @@ ul {
     padding: 5%;
   }
 }
-main {
 
+main {
   .past-bookings {
     color: $white;
     margin-left: 5%;
   }
+
   .past-bookings-info {
     background-color: $white;
     margin-left: 5%;
@@ -161,32 +163,28 @@ main {
     }
   }
 }
-
-
 /*manager pages*/
-
 /*manager dashboard*/
-
 /*SHOULD BE REFACTORED*/
 .manager-page {
   height: 100%;
 }
 
 .manager-dashboard {
-
   .manager-welcome-message {
     margin-left: 10%;
   }
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 15%;
-    .manager-dashboard-container {
-      height: 85%;
-      display: flex;
-      flex-direction: row;
-      width: 90%;
-    }
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 15%;
+
+  .manager-dashboard-container {
+    height: 85%;
+    display: flex;
+    flex-direction: row;
+    width: 90%;
+  }
 }
 
 .manager-navbar {
@@ -202,7 +200,6 @@ main {
     color: $white;
     margin-left: 5%;
   }
-
 }
 
 .all-manager-daily-info {
@@ -214,7 +211,7 @@ main {
 }
 
 .manager-guest-search-container {
-  margin: 0 15% 0 15%;
+  margin: 0 15%;
   width: 10%;
   display: flex;
   flex-direction: row;
@@ -228,11 +225,9 @@ main {
     margin: 0;
     height: 60%;
   }
-
   // label {
   //   display: none;
   // }
-
   button {
     display: inline;
     height: 60%;
@@ -248,29 +243,64 @@ main {
 p {
   padding-top: 5%;
   margin-left: 5%;
+
   span {
     font-size: 50px;
     font-weight: bold;
     margin-left: 5%;
   }
 }
-
 /*manager customer search*/
-
 .manager-customer-search {
   height: 100%;
+  margin-top: 8%;
+}
 
+.manager-search-items {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  height: 15%;
+
+  h3 {
+    margin-left: 5%;
+  }
+
+  input {
+    background: #FFFFFF;
+    border: 2px solid #7A7979;
+    border-radius: 10px;
+    font-style: italic;
+    margin: 0;
+    height: 60%;
+    float: right;
+  }
+
+  .manager-search-guests-button {
+    // display: inline;
+    height: 100%;
+    width: 8%;
+    border-radius: 10px;
+    margin-left: 2%;
+    background-color: #467DCF;
+    color: $white;
+    font-weight: bold;
+    font-size: $large-font-size;
+  }
+}
+
+.manager-book-room {
+  @include red-button;
 }
 
 .manager-customer-info-container {
   display: flex;
   flex-direction: row;
-  margin-top: 5%;
   height: 100%;
 
   main {
     @include blue-box;
-    margin-top: 5%;
+    margin-top: 0;
     width: 50%;
     height: 70%;
 
@@ -278,45 +308,49 @@ p {
       color: $white;
       margin-left: 5%;
     }
-
   }
 
   aside {
-      margin: 5% 0 0 5%;
-      width: 15%;
-      background: #7F48C5;
-      border-radius: $slight-curve;
-      color: $white;
+    margin: 0 0 0 5%;
+    width: 15%;
+    background: #7F48C5;
+    border-radius: $slight-curve;
+    color: $white;
+    text-align: center;
+    height: 20%;
+    // margin: 0 10% 0 15%;
+    p {
+      padding: 0;
       text-align: center;
-      height: 20%;
-      // margin: 0 10% 0 15%;
-      p {
-        padding: 0;
-      }
-
+    }
   }
 
   .individual-booking-info {
     border-radius: $slight-curve;
     color: black;
     width: 80%;
-    height: 20%;
-    background-color: white;
+    height: 30%;
+    background-color: $white;
     margin-left: 5%;
-    p {
-      padding: 0 0 0 5%;
-      margin: 0;
+    position: relative;
 
+    p {
+      padding: 2% 0 0 5%;
+      margin: 0;
+    }
+
+    button {
+      @include red-button;
+      font-size: $large-font-size;
+      font-weight: 800;
+      width: 20%;
+      position: absolute;
+      bottom: 10px;
+      right: 6px;
     }
   }
-
 }
-
-
-
-
 /*booking search*/
-
 nav {
   @include navbar;
 }
@@ -325,7 +359,6 @@ nav {
   margin-top: 10%;
   width: 100%;
   height: 100%;
-
 }
 
 .booking-search-container {
@@ -339,7 +372,6 @@ nav {
   width: 50%;
   height: 250px;
   flex-direction: row;
-
 }
 
 #booking-search-form {
@@ -422,28 +454,27 @@ nav {
     width: 60%;
     height: 50%;
     margin: 5%;
-
     font-size: $small-font-size;
     // p {
-      //   background-color: white;
-      //   width: 50%;
-      //   display: inline-block;
-      // }
-
-    }
-    button {
-      @include red-button;
-      width: 20%;
-      margin: 1%;
-      font-weight: bold;
-      font-size: $large-font-size;
-      position: absolute;
-      bottom: 5px;
-      right: 5px;
-    }
-
-    .booking-price {
-      font-size: $small-font-size;
-      height: 50%;
-    }
+    //   background-color: white;
+    //   width: 50%;
+    //   display: inline-block;
+    // }
   }
+
+  button {
+    @include red-button;
+    width: 20%;
+    margin: 1%;
+    font-weight: bold;
+    font-size: $large-font-size;
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+  }
+
+  .booking-price {
+    font-size: $small-font-size;
+    height: 50%;
+  }
+}
