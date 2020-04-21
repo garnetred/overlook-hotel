@@ -15,6 +15,7 @@ let currentDate = "2020/02/05";
 let currentUser = null;
 let userID;
 let allUsers = [];
+let count = 0;
 
 const domUpdates = {
 
@@ -40,6 +41,7 @@ const domUpdates = {
   },
 
   displayHomePage() {
+    count++;
     let allPages = $('body').children().toArray();
     allPages.forEach(page => {
       $(page).addClass('hide')
@@ -51,9 +53,12 @@ const domUpdates = {
       $('.manager-dashboard').removeClass('hide');
       $('#booking-search-page').text('View All Rooms')
       domUpdates.displayManagerInfo();
-    } else {
+      return;
+    } else if (currentUser !== 'manager') {
       $('.customer-dashboard').removeClass('hide');
       $('.customer-welcome-message').text(`Welcome, ${currentUser.firstName}`)
+    }
+    if (count <= 1) {
       domUpdates.displayCustomerInfo();
     }
   },
@@ -84,7 +89,6 @@ const domUpdates = {
          <p>Date: ${booking.date}</p>
          <p>Room Number: ${booking.roomNumber}</p>
          </section>`)
-
        })
 
        if (pastBookings !== 'undefined') {
@@ -116,7 +120,36 @@ const domUpdates = {
   },
 
   displayGuestsByNameAndDate() {
-    //if the current user's username is
+
+    let foundUser = new User(userRepository.findUserByName($('.search-guests-input').val()))
+
+    $('.manager-dashboard').addClass('hide');
+    $('.manager-customer-search').removeClass('hide');
+
+    $('.manager-customer-search').append(`<section class="manager-search-items">
+      <h3 class="found-user-name">${foundUser.name}</h3>
+      <button class="manager-book-room">Book A Room</button>
+
+      <label><input type="text" placeholder="Search Guests" class="search-guests-input" aria-label="Search"></label>
+      <button type="button" class="manager-search-guests-button">GO</button>
+    </section>
+    <section class="manager-customer-info-container">
+      <aside>
+        <p>${foundUser.getFirstName()} has spent</p>
+        <span>${foundUser.calculateTotal()}</span>
+        <p>at Overlook Hotel</p>
+      </aside>
+    </section>`)
+    // console.log(userRepository)
+
+    // let found = allUsers.find(user => user.name.includes($('.search-guests-input').val()))
+
+
+   //  let guess = allUsers.find(user =>
+   // console.log(user.name.indexOf('kel')))
+   // console.log(guess);
+   //
+   // allUsers.find(user => console.log(user.name === $('.search-guests-input').val()))
   },
 
   deleteBooking() {

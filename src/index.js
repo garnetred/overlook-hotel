@@ -31,7 +31,7 @@ import './images/hotel-login-page.jpg';
 //logout button
 //dropdown
 // let user;
-// let userRepository;
+let userRepository;
 // let room;
 // let booking;
 // let bookingRepository;
@@ -55,5 +55,7 @@ function getData() {
   $('.account-text').click(domUpdates.displayHomePage);
   $('.logout-text').click(domUpdates.logout);
   $('#booking-search-page').click(domUpdates.displaySearchPage)
+  $('.manager-search-guests-button').click(domUpdates.displayGuestsByNameAndDate)
+
 
   $(window).on("load", getData);

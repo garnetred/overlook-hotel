@@ -7,9 +7,12 @@ class UserRepository {
   }
 
 
-  findUserByName(name) {
-    return this.allUsers.find(user => user.name.includes(name));
-  }
+  findUserByName(person) {
+    console.log(this.allUsers)
+    let foundUser = this.allUsers.find(user => user.name.toLowerCase().includes(person.toLowerCase()));
+    console.log(foundUser);
+    return foundUser;
+}
 
 
 }
