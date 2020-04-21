@@ -17,7 +17,7 @@ class User {
   }
 
   getFirstName() {
-    this.firstName = this.name.split(' ')[0];
+    return this.name.split(' ')[0];
   }
 
   calculateTotal() {
@@ -59,15 +59,14 @@ class User {
   }
 
   findPastBookings(date) {
-    let pastBookings = this.allBookings.filter(booking => booking.date !== date);
+    let pastBookings = this.allBookings.filter(booking => date > booking.date);
     return pastBookings;
-    //have to sort first
-    //maybe use currentBookings or like findindex or something?
   }
 
   findFutureBookings(date) {
-    this.allBookings.sort((a, b) => b.date - a.date);
-    //all of the future bookings are the ones before the date that's passed in
+    let futureBookings = this.allBookings.filter(booking => date < booking.date);
+    // domUpdates.displayCustomerInfo(futureBookings, this.currentBookings);
+    return futureBookings;
   }
 
 }

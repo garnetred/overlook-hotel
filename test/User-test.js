@@ -161,16 +161,37 @@ describe('User', function() {
     }])
 
     expect(user4.findPastBookings(currentDate)).to.deep.equal([{
-        id: "5fwrgu4i7k55hl7cd",
-        userID: 4,
-        date: "2020/02/07",
-        roomNumber: 5,
-        roomServiceCharges: []
-      }, {
         id: "5fwrgu4i7k55hl6vc",
         userID: 4,
         date: "2020/01/18",
         roomNumber: 18,
+        roomServiceCharges: []
+      }
+    ])
+  })
+
+  it('should be able to find all future bookings', function() {
+    expect(user3.findFutureBookings(currentDate)).to.deep.equal([  {
+        id: "5fwrgu4i7k55hl6v3",
+        userID: 3,
+        date: "2020/02/07",
+        roomNumber: 23,
+        roomServiceCharges: []
+      },
+      {
+        id: "5fwrgu4i7k55hl72u",
+        userID: 3,
+        date: "2020/02/17",
+        roomNumber: 4,
+        roomServiceCharges: []
+      }
+    ])
+
+    expect(user4.findFutureBookings(currentDate)).to.deep.equal([{
+        id: "5fwrgu4i7k55hl7cd",
+        userID: 4,
+        date: "2020/02/07",
+        roomNumber: 5,
         roomServiceCharges: []
       },
       {

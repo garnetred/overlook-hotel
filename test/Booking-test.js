@@ -14,14 +14,10 @@ describe('Booking', function() {
   beforeEach(() => {
     booking1 = new Booking(bookingTestData[0]);
     booking2 = new Booking(bookingTestData[1]);
-     chai.spy.on(booking1, ['deleteBooking'], () => true)
-     chai.spy.on(booking2, ['deleteBooking'], () => true)
+
   });
 
-  afterEach(() => {
-    chai.spy.restore(booking1);
-    chai.spy.restore(booking2);
-  });
+
 
   it('should be an instance of Booking', function() {
     expect(booking1).to.be.an.instanceof(Booking);
@@ -53,11 +49,7 @@ describe('Booking', function() {
     expect(booking2.roomServiceCharges).to.deep.equal([]);
   });
 
-  it('should successfully delete a booking', function() {
 
-    expect(booking1.deleteBooking()).to.equal(true);
-    expect(booking2.deleteBooking()).to.equal(true);
-  });
 
 
 });

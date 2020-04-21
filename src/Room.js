@@ -13,10 +13,8 @@ class Room {
 
   //could use booking data here as object literal without passing it in as a parameter
   createNewBooking(user, date) {
-    //should create a new booking and send a post request to the bookings endpoint, while generating a random ID to use in this request
     let url = 'https://fe-apps.herokuapp.com/api/v1/overlook/1904/bookings/bookings'
     let bookingInfo = {
-      'id': Math.floor(Math.random() * 1000000000000),
       'userID': user.id,
       'date': date,
       'roomNumber': this.number

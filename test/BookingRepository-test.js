@@ -17,6 +17,13 @@ describe('BookingRepository', function() {
 
     currentDate = '2020/02/05';
     secondDate = "2020/02/07";
+    chai.spy.on(booking, ['deleteBooking'], () => true);
+    chai.spy.on(booking2, ['deleteBooking'], () => true);
+  });
+
+  afterEach(() => {
+    chai.spy.restore(booking);
+    chai.spy.restore(booking2);
   });
 
   it('should be an instance of Booking Booking Repository', function() {
@@ -140,55 +147,51 @@ describe('BookingRepository', function() {
   });
 
   it('should calculate daily revenue', function() {
-    booking.findDailyBookings(currentDate);
-    booking2.findDailyBookings(secondDate);
 
     expect(booking.calculateDailyRevenue(currentDate, roomTestData)).to.equal(609.71);
 
     expect(booking2.calculateDailyRevenue("2020/02/07", roomTestData)).to.equal(516.53);
   });
 
-  it('should retrieve all daily bookings', function() {
-    booking.findDailyBookings(currentDate);
-    expect(booking.dailyBookings).to.deep.equal([{
-        id: "5fwrgu4i7k55hl6t8",
-        userID: 1,
-        date: "2020/02/05",
-        roomNumber: 12,
-        roomServiceCharges: []
-      },
-      {
-        id: "5fwrgu4i7k55hl6wc",
-        userID: 4,
-        date: "2020/02/05",
-        roomNumber: 23,
-        roomServiceCharges: []
-      },
-      {
-        id: "5fwrgu4i7k55hl6ye",
-        userID: 4,
-        date: "2020/02/05",
-        roomNumber: 8,
-        roomServiceCharges: []
-      }
-    ]);
-  });
+  // it('should retrieve all daily bookings', function() {
+  //   expect(booking.dailyBookings).to.deep.equal([{
+  //       id: "5fwrgu4i7k55hl6t8",
+  //       userID: 1,
+  //       date: "2020/02/05",
+  //       roomNumber: 12,
+  //       roomServiceCharges: []
+  //     },
+  //     {
+  //       id: "5fwrgu4i7k55hl6wc",
+  //       userID: 4,
+  //       date: "2020/02/05",
+  //       roomNumber: 23,
+  //       roomServiceCharges: []
+  //     },
+  //     {
+  //       id: "5fwrgu4i7k55hl6ye",
+  //       userID: 4,
+  //       date: "2020/02/05",
+  //       roomNumber: 8,
+  //       roomServiceCharges: []
+  //     }
+  //   ]);
+  // });
 
   it('should calculate percentage of available rooms booked by day', function() {
-    booking.findDailyBookings(currentDate);
-    booking2.findDailyBookings(secondDate);
+    // booking.findDailyBookings(currentDate);
+    // booking2.findDailyBookings(secondDate);
 
-    expect(booking.findBookedRoomPercentagePerDay(roomTestData)).to.equal(23);
-    expect(booking2.findBookedRoomPercentagePerDay(roomTestData)).to.equal(15)
+    expect(booking.findBookedRoomPercentagePerDay(roomTestData, currentDate)).to.equal(23);
+    expect(booking2.findBookedRoomPercentagePerDay(roomTestData, secondDate)).to.equal(15)
 
   });
 
-  it('should find available rooms by date', function() {
-    booking.findDailyBookings(currentDate);
-    booking2.findDailyBookings(secondDate);
-    // console.log(booking2.dailyBookings)
+  it('should find available rooms by date and type', function() {
+    // booking.findDailyBookings(currentDate);
+    // booking2.findDailyBookings(secondDate);
 
-    expect(booking.findAvailableRoomsByDateAndType(roomTestData, 'suite')).to.deep.equal([{
+    expect(booking.findAvailableRoomsByDateAndType(roomTestData, 'suite', currentDate)).to.deep.equal([{
         number: 2,
         roomType: "suite",
         bidet: false,
@@ -206,8 +209,13 @@ describe('BookingRepository', function() {
       }
     ]);
 
-    expect(booking2.findAvailableRoomsByDateAndType(roomTestData, 'junior suite')).to.deep.equal([])
+    expect(booking2.findAvailableRoomsByDateAndType(roomTestData, 'junior suite', currentDate)).to.deep.equal([])
 
+  });
+
+  it('should successfully delete a booking', function() {
+    expect(booking.deleteBooking('5fwrgu4i7k55hl72u')).to.equal(true);
+    expect(booking2.deleteBooking('5fwrgu4i7k55hl88k')).to.equal(true);
   });
 
 });

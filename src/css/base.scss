@@ -64,8 +64,9 @@ input {
   background-size: cover;
   // overflow: hidden;
 }
-/* customer pages */
-.customer-navbar {
+
+/*navbar*/
+.navbar {
   @include navbar;
 }
 
@@ -92,16 +93,18 @@ ul {
   @include main-font-info;
   @include red-button;
 
-  h1 {
-    line-height: 100%;
-    width: 100%;
-    margin: 0;
-  }
+  // h1 {
+  //   // line-height: 100%;
+  //   width: 100%;
+  //   margin: 0;
+  // }
 }
+/* customer pages */
 
-.customer-page {
-  height: 100%;
-}
+
+// .customer-page {
+//   height: 100%;
+// }
 /* customer dashboard */
 .customer-dashboard {
   position: absolute;
@@ -123,6 +126,7 @@ ul {
 
 .customer-all-bookings {
   @include blue-box;
+  height: auto;
 }
 
 .customer-information {
@@ -139,12 +143,12 @@ ul {
 }
 
 main {
-  .past-bookings {
+  .past-bookings, .upcoming-bookings {
     color: $white;
     margin-left: 5%;
   }
 
-  .past-bookings-info {
+  .past-bookings-info, .upcoming-bookings-info {
     background-color: $white;
     margin-left: 5%;
     width: 89%;
@@ -152,6 +156,8 @@ main {
     align-items: center;
     border-radius: $slight-curve;
   }
+
+
 
   .individual-booking-info {
     color: black;
@@ -166,9 +172,9 @@ main {
 /*manager pages*/
 /*manager dashboard*/
 /*SHOULD BE REFACTORED*/
-.manager-page {
-  height: 100%;
-}
+// .manager-page {
+//   height: 100%;
+// }
 
 .manager-dashboard {
   .manager-welcome-message {
