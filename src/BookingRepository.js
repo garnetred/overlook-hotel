@@ -4,13 +4,14 @@ import domUpdates from './domUpdates'
 class BookingRepository {
   constructor(data) {
     this.allBookings = data;
-    this.dailyBookings = null;
+    // this.dailyBookings = null;
   }
 
   calculateDailyRevenue(date, rooms) {
     let bookedRooms = [];
     let dailyRevenue;
-    let roomNumbers = this.dailyBookings.map(booking => booking.roomNumber);
+    let dailyBookings = this.allBookings.filter(booking => booking.date === date);
+    let roomNumbers = dailyBookings.map(booking => booking.roomNumber);
     rooms.filter(room => {
       return roomNumbers.forEach(number => {
         if (room.number === number) {
@@ -26,30 +27,31 @@ class BookingRepository {
   }
 
   //may need to be refactored so this value is always available to us
-  findDailyBookings(date) {
-    this.dailyBookings = this.allBookings.filter(booking => booking.date === date)
+  // findDailyBookings(date = '2020/02/05') {
+  //   this.dailyBookings =
+  // }
+
+  findBookedRoomPercentagePerDay(rooms, date) {
+    let dailyBookings = this.allBookings.filter(booking => booking.date === date);
+    let decimal = (dailyBookings.length/rooms.length * 100).toFixed(0);
+    return Number(decimal);
   }
 
-  findBookedRoomPercentagePerDay(rooms) {
-    let decimal = (this.dailyBookings.length/rooms.length * 100).toFixed(0);
-    return Number(decimal);
+  findAllAvailableRooms(rooms, date) {
+      let dailyBookings = this.allBookings.filter(booking => booking.date === date);
+      let availableRooms = rooms.length - dailyBookings.length;
+      return availableRooms;
+      //add relevant test
   }
 
   findAvailableRoomsByDateAndType(rooms, type, date) {
     let availableRoomsByDate = [];
     let availableRoomsByDateAndType = [];
-    let bookedRoomNumbers = this.dailyBookings.map(booking => booking.roomNumber)
+      let dailyBookings = this.allBookings.filter(booking => booking.date === date);
+    let bookedRoomNumbers = dailyBookings.map(booking => booking.roomNumber)
     let unavailableRooms = this.allBookings.filter(booking => booking.date === date);
     console.log('unavailable', unavailableRooms)
     //this is in the regular bookings array though, would need to convert to the rooms one
-
-    //need to iterate through both bookings and rooms by room number
-    //because it's nested everything is added more than once
-    // availableRoomsByDate = rooms.filter(room => {
-    // return this.allBookings.filter(booking => {
-    //     return booking.date !== date && room.number !== booking.roomNumber
-    //   })
-    // })
 
     availableRoomsByDate = rooms.filter(room => unavailableRooms.includes(room));
 

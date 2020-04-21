@@ -48,8 +48,12 @@ function getData() {
     .catch(err => console.error(err));
 }
 
-$('.login-form').submit(function(event) {
-  event.preventDefault();
-  domUpdates.login();
-});
-$(window).on("load", getData);
+  $('.login-form').submit(function(event) {
+    event.preventDefault();
+    domUpdates.login();
+  });
+  $('.account-text').click(domUpdates.displayHomePage);
+  $('.logout-text').click(domUpdates.logout);
+  $('#booking-search-page').click(domUpdates.displaySearchPage)
+
+  $(window).on("load", getData);

@@ -147,52 +147,49 @@ describe('BookingRepository', function() {
   });
 
   it('should calculate daily revenue', function() {
-    booking.findDailyBookings(currentDate);
-    booking2.findDailyBookings(secondDate);
 
     expect(booking.calculateDailyRevenue(currentDate, roomTestData)).to.equal(609.71);
 
     expect(booking2.calculateDailyRevenue("2020/02/07", roomTestData)).to.equal(516.53);
   });
 
-  it('should retrieve all daily bookings', function() {
-    booking.findDailyBookings(currentDate);
-    expect(booking.dailyBookings).to.deep.equal([{
-        id: "5fwrgu4i7k55hl6t8",
-        userID: 1,
-        date: "2020/02/05",
-        roomNumber: 12,
-        roomServiceCharges: []
-      },
-      {
-        id: "5fwrgu4i7k55hl6wc",
-        userID: 4,
-        date: "2020/02/05",
-        roomNumber: 23,
-        roomServiceCharges: []
-      },
-      {
-        id: "5fwrgu4i7k55hl6ye",
-        userID: 4,
-        date: "2020/02/05",
-        roomNumber: 8,
-        roomServiceCharges: []
-      }
-    ]);
-  });
+  // it('should retrieve all daily bookings', function() {
+  //   expect(booking.dailyBookings).to.deep.equal([{
+  //       id: "5fwrgu4i7k55hl6t8",
+  //       userID: 1,
+  //       date: "2020/02/05",
+  //       roomNumber: 12,
+  //       roomServiceCharges: []
+  //     },
+  //     {
+  //       id: "5fwrgu4i7k55hl6wc",
+  //       userID: 4,
+  //       date: "2020/02/05",
+  //       roomNumber: 23,
+  //       roomServiceCharges: []
+  //     },
+  //     {
+  //       id: "5fwrgu4i7k55hl6ye",
+  //       userID: 4,
+  //       date: "2020/02/05",
+  //       roomNumber: 8,
+  //       roomServiceCharges: []
+  //     }
+  //   ]);
+  // });
 
   it('should calculate percentage of available rooms booked by day', function() {
-    booking.findDailyBookings(currentDate);
-    booking2.findDailyBookings(secondDate);
+    // booking.findDailyBookings(currentDate);
+    // booking2.findDailyBookings(secondDate);
 
-    expect(booking.findBookedRoomPercentagePerDay(roomTestData)).to.equal(23);
-    expect(booking2.findBookedRoomPercentagePerDay(roomTestData)).to.equal(15)
+    expect(booking.findBookedRoomPercentagePerDay(roomTestData, currentDate)).to.equal(23);
+    expect(booking2.findBookedRoomPercentagePerDay(roomTestData, secondDate)).to.equal(15)
 
   });
 
   it('should find available rooms by date and type', function() {
-    booking.findDailyBookings(currentDate);
-    booking2.findDailyBookings(secondDate);
+    // booking.findDailyBookings(currentDate);
+    // booking2.findDailyBookings(secondDate);
 
     expect(booking.findAvailableRoomsByDateAndType(roomTestData, 'suite', currentDate)).to.deep.equal([{
         number: 2,

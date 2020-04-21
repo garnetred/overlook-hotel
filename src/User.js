@@ -17,7 +17,7 @@ class User {
   }
 
   getFirstName() {
-    this.firstName = this.name.split(' ')[0];
+    return this.name.split(' ')[0];
   }
 
   calculateTotal() {
@@ -65,6 +65,7 @@ class User {
 
   findFutureBookings(date) {
     let futureBookings = this.allBookings.filter(booking => date < booking.date);
+    // domUpdates.displayCustomerInfo(futureBookings, this.currentBookings);
     return futureBookings;
   }
 

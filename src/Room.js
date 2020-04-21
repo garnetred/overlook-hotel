@@ -15,7 +15,6 @@ class Room {
   createNewBooking(user, date) {
     let url = 'https://fe-apps.herokuapp.com/api/v1/overlook/1904/bookings/bookings'
     let bookingInfo = {
-      'id': Math.random().toString(36).substr(2),
       'userID': user.id,
       'date': date,
       'roomNumber': this.number
