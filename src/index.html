@@ -56,12 +56,12 @@
         <main class="manager-daily-info">
           <h3 class="manager-daily-overview">Daily Overview</h3>
           <section class="all-manager-daily-info">
-            <!-- <section class="manager-info">
-              <p>Available Rooms:<span>20</span></p>
+            <section class="manager-info">
+              <!-- <p>Available Rooms:<span>20</span></p>
               <p>Total Revenue: <span>$600</span></p>
               <p>Percentage of Rooms Occupied: <span>90%</span></p>
-              <p></p>
-            </section> -->
+              <p></p> -->
+            </section>
           </section>
         </main>
         <aside class="manager-guest-search-container">
@@ -134,23 +134,27 @@
             <label for="junior-suite"><input type="checkbox" id="junior-suite" name="junior-suite">Junior Suite </label>
 
             <label for="residential-suite"><input type="checkbox" id="residential-suite" name="residential-suite">Residential Suite</label>
-            <button type="submit">Search</button>
+            <label for="suite"><input type="checkbox" id="suite" name="suite">Suite</label>
+
+            <label for="single-room"><input type="checkbox" id="single-room" name="single-room">Single Room</label>
+            <button type="submit" id="booking-search-button">Search</button>
         </form>
       </section>
       <section class="booking-search-results">
-        <h3>Search Results</h3>
-        <section class="individual-search-results">
-          <figure>
+        <h3 class="search-results-message"></h3>
+        <!-- <section class="individual-search-results"> -->
+          <!-- <figure>
             ...
           </figure>
           <article>
-            <p>This junior suite offers...
+            <p>This junior suite offers...</p>
+            <p>It also comes equipped with a bidet, so no more running out of toilet paper.</p>
               <span class="booking-price">Cost</span>
             </p>
           </article>
           <button id="customer-book-room-button">Book</button>
-        </section>
-      </section>
+        </section> -->
+      <!-- </section> -->
   </section>
   </main>
   </section>

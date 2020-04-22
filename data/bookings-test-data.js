@@ -48,6 +48,13 @@ const bookingTestData = [{
     roomServiceCharges: []
   },
   {
+    id: "5fwrgu4i7k55hl88k",
+    userID: 3,
+    date: "2020/02/07",
+    roomNumber: 2,
+    roomServiceCharges: []
+  },
+  {
     id: "5fwrgu4i7k55hl6v3",
     userID: 3,
     date: "2020/02/07",
@@ -106,7 +113,7 @@ const bookingTestData = [{
   {
     id: "5fwrgu4i7k55hl6z1",
     userID: 5,
-    date: "2020/02/12",
+    date: "2020/02/07",
     roomNumber: 24,
     roomServiceCharges: []
   },

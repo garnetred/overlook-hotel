@@ -13,37 +13,16 @@ import './images/turing-logo.png';
 import './images/hotel-login-page.jpg';
 // import '../favicon.ico';
 
-
-//variables
-//currentDate variable
-//user
-//BookingRepository
-//bookings
-//rooms
-
-//functions
-//fetch data from users endpoint
-//fetch data from bookings endpoint
-//fetch data from rooms endpoint
-//invoke function that will then instantiate all three items
-
-//event listeners
-//customer search button
-//manager search button (to search through users)
-//customer make booking button
-//manager make booking button
-//click handlers
-//login button
-//logout button
 let user;
 let allUsers = [];
 let userRepository;
 let room;
-let allRooms;
+let allRooms = [];
 let booking;
 let bookingRepository;
 let currentDate = "2020/02/05";
 import { currentUser } from './domUpdates.js'
+import { count } from './domUpdates.js'
 //dropdown
 // let currentUser;
 console.log('The code is running.');
@@ -65,10 +44,11 @@ function instantiateData(users, rooms, bookings) {
     return user;
   })
   console.log(allUsers)
-  allRooms = rooms;
   rooms.forEach(place => {
 
-    return room = new Room(place);
+    room = new Room(place);
+    allRooms.push(room);
+    return rooms;
   })
   bookings.forEach(booking => {
     return booking = new Booking(booking);
@@ -110,16 +90,18 @@ export function deleteBookingRequest() {
     }
   });
   $('.account-text').click(function() {
-    if (currentUser === 'manager') {
+    console.log(count);
+    if (currentUser === 'manager' && count < 1) {
       bookingRepository.findBookedRoomPercentagePerDay(allRooms, currentDate);
       bookingRepository.calculateDailyRevenue(currentDate, allRooms);
       bookingRepository.findAllAvailableRooms(allRooms, currentDate);
       domUpdates.displayHomePage();
-      console.log('in current user manager')
-    } else {
+    } else if (currentUser !== 'manager' && count < 1) {
       domUpdates.displayHomePage();
       currentUser.findFutureBookings(currentDate);
       currentUser.findPastBookings(currentDate);
+    } else {
+      domUpdates.displayHomePage();
     }
   });
   $('.logout-text').click(domUpdates.logout);
@@ -131,13 +113,20 @@ export function deleteBookingRequest() {
     userRepository.findUserByName($('.search-guests-input').val(), currentDate)
   })
 
-// $('.delete-booking-button').click(function() {
-//   console.log('please delete me')
-// })
-$('body').click(function() {
+$('#booking-search-button').click(function(event){
+  event.preventDefault();
+  // console.log('in booking search function')
+  bookingRepository.findAvailableRoomsByDateAndType(allRooms, 'junior suite', $('.date-search').val())
+})
+
+$('body').click(function(event) {
   if ($(event.target).hasClass('delete-booking-button')) {
     bookingRepository.deleteBooking(event.target.id, event);
     console.log(event.target.id)
+  } else if ($(event.target).hasClass('customer-book-room-button')) {
+    let currentRoom =
+    allRooms.find(room => room.number === Number(event.target.id))
+    currentRoom.createNewBooking(currentUser, $('.date-search').val());
   }
 })
 
