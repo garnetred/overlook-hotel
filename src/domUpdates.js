@@ -62,27 +62,27 @@ const domUpdates = {
   //
   //
 
-       // displayPastBookings(past) {
-       //   if (past !== 'undefined') {
-       //        past.forEach(booking => {
-       //          $('.past-bookings-info').append(`<section class="individual-booking-info">
-       //            <p>Date: ${booking.date}</p>
-       //            <p>Cost:</p>
-       //            <p>Something:</p>`)
-       //        })
-       //      }
-       // },
+       displayPastBookings(past) {
+         if (past !== 'undefined') {
+              past.forEach(booking => {
+                $('.past-bookings-info').append(`<section class="individual-booking-info">
+                  <p>Date: ${booking.date}</p>
+                  <p>Cost:</p>
+                  <p>Something:</p>`)
+              })
+            }
+       },
        //
-       // displayFutureBookings(future) {
-       //      if (future !== 'undefined' && $('.individual-booking-info')) {
-       //        future.forEach(booking => {
-       //          $('.upcoming-bookings-info').append(`<section class="individual-booking-info">
-       //          <p>Date: ${booking.date}</p>
-       //          <p>Room Number: ${booking.roomNumber}</p>
-       //          </section>`)
-       //        })
-       //      }
-       // },
+       displayFutureBookings(future) {
+            if (future !== 'undefined' && $('.individual-booking-info')) {
+              future.forEach(booking => {
+                $('.upcoming-bookings-info').append(`<section class="individual-booking-info">
+                <p>Date: ${booking.date}</p>
+                <p>Room Number: ${booking.roomNumber}</p>
+                </section>`)
+              })
+            }
+       },
 
        displayCurrentBookings() {
 
@@ -115,9 +115,6 @@ const domUpdates = {
   },
 
   displayGuestsByNameAndDate(user, date) {
-    //maybe I shouldn't let this be invoked right away?
-    //or maybe this function should do something else?
-    //it could maybe find the user by name, but find an instantiated user?
     $('.manager-dashboard').addClass('hide');
     $('.manager-customer-search').removeClass('hide');
     $('.found-user-name').text(`${user.name}`)
@@ -132,10 +129,13 @@ const domUpdates = {
         <section class="individual-booking-info">
         <p>Date: ${booking.date}</p>
         <p>Room Number: ${booking.roomNumber}</p>
+        <button class="delete-booking-button" id=${booking.id}>Cancel</button>
         </section>
-          <button>Cancel</button>`)
-          console.log('hey');
+          `)
     })
+    // $('.delete-booking-button').click(function() {
+    //   deleteBookingRequest();
+    // })
 
     user.pastBookings.forEach(booking => {
       $('.past-bookings-info').append(`<section class="individual-booking-info">
@@ -146,8 +146,12 @@ const domUpdates = {
     })
   },
 
-  deleteBooking() {
+  deleteBooking(id, event) {
     //should only work if current user's username is "manager"
+    console.log(event.target)
+    // console.log(.parent())
+    $(event.target).parent().addClass('hide');
+    //how do I delete this though?
   },
 
   login(userRepository) {

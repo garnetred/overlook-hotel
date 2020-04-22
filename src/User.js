@@ -62,13 +62,14 @@ class User {
 
   findPastBookings(date) {
     this.pastBookings = this.allBookings.filter(booking => date > booking.date);
-    // domUpdates.displayPastBookings(this.pastBookings);
+    domUpdates.displayPastBookings(this.pastBookings);
+    console.log('this function is being invoked')
     return this.pastBookings;
   }
 
   findFutureBookings(date) {
     this.futureBookings = this.allBookings.filter(booking => date < booking.date);
-    // domUpdates.displayFutureBookings(this.futureBookings);
+    domUpdates.displayFutureBookings(this.futureBookings);
     // domUpdates.displayCustomerInfo(futureBookings, this.currentBookings);
     return this.futureBookings;
   }

@@ -89,6 +89,10 @@ function findAllRoomsAndBookingsPerUser() {
   })
 }
 
+export function deleteBookingRequest() {
+  console.log('please delete ok')
+}
+
   $('.login-form').submit(function(event) {
     event.preventDefault();
     console.log(userRepository);
@@ -127,5 +131,14 @@ function findAllRoomsAndBookingsPerUser() {
     userRepository.findUserByName($('.search-guests-input').val(), currentDate)
   })
 
+// $('.delete-booking-button').click(function() {
+//   console.log('please delete me')
+// })
+$('body').click(function() {
+  if ($(event.target).hasClass('delete-booking-button')) {
+    bookingRepository.deleteBooking(event.target.id, event);
+    console.log(event.target.id)
+  }
+})
 
   $(window).on("load", getData);

@@ -82,14 +82,25 @@ class BookingRepository {
     return availableRoomsByDateAndType;
   }
 
-  deleteBooking(id) {
-    let url = `https://fe-apps.herokuapp.com/api/v1/overlook/1904/bookings/bookings${id}`
+  deleteBooking(id, event) {
+    let url = `https://fe-apps.herokuapp.com/api/v1/overlook/1904/bookings/bookings/`
+    let newID = Number(id);
+    console.log(newID)
+    domUpdates.deleteBooking(newID, event);
+
     return fetch(url, {
         method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          'id': newID
+        })
       })
       .then(response => response.json())
       .then(response => console.log(response))
       .catch(err => console.error(err))
+
   }
 }
 
