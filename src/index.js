@@ -115,8 +115,15 @@ export function deleteBookingRequest() {
 
 $('#booking-search-button').click(function(event){
   event.preventDefault();
-  // console.log('in booking search function')
-  bookingRepository.findAvailableRoomsByDateAndType(allRooms, 'junior suite', $('.date-search').val())
+  let place;
+  $('.room-type').each(function(i){
+    console.log('this', this)
+    if ($(this).is(':checked')) {
+      place = $(this).attr('id').split('-').join(' ');
+    }
+  })
+  console.log(place);
+  bookingRepository.findAvailableRoomsByDateAndType(allRooms, place, $('.date-search').val())
 })
 
 $('body').click(function(event) {
@@ -126,7 +133,7 @@ $('body').click(function(event) {
   } else if ($(event.target).hasClass('customer-book-room-button')) {
     let currentRoom =
     allRooms.find(room => room.number === Number(event.target.id))
-    currentRoom.createNewBooking(currentUser, $('.date-search').val());
+    currentRoom.createNewBooking(currentUser, $('.date').val());
   }
 })
 

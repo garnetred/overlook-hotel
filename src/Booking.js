@@ -10,6 +10,11 @@ class Booking {
     this.roomServiceCharges = bookingData.roomServiceCharges;
   }
 
+findRoomPricePerBooking() {
+  //iterate through booking data then iterate through room data using find and retrieve cost per night
+  //why am I iterating through all booking data? 
+
+}
 }
 
 

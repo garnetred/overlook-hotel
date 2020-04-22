@@ -42,18 +42,22 @@ const domUpdates = {
   displayRoomsAvailableForBooking(rooms) {
     $('.search-results-message').text('Search Results');
     //must iterate through all rooms and display a message, so it'll have to be generic.
-    $('.booking-search-results').html('');
-    rooms.forEach(room => {
-      $('.booking-search-results').append(`<section class="individual-search-results">
-      <figure>
+    if (rooms.length === 0) {
+      $('.booking-search-results').html(`<p>Unfortunately, there are no rooms available for the selected date and room type. Please try a different search. If you need further assistance, you are welcome to contact us at 1-800-555-5555.</p>`)
+    } else {
+      $('.booking-search-results').html('');
+      rooms.forEach(room => {
+        $('.booking-search-results').append(`<section class="individual-search-results">
+        <figure>
         ...
-      </figure>
-      <article>
-      <p>This lovely ${room.roomType} offers ${room.numBeds} beds and a stunning ocean view when you just have to get away. Located at ${room.number}, it is a quiet space tucked away on the first floor.</p>
-      <span class="booking-price">${room.costPerNight}</span>
-      <button class="customer-book-room-button" id=${room.number}>Book</button>
-      </section>`);
-    })
+        </figure>
+        <article>
+        <p>This lovely ${room.roomType} offers ${room.numBeds} beds and a stunning ocean view when you just have to get away. Located at ${room.number}, it is a quiet space tucked away on the first floor.</p>
+        <p class="booking-price">$${room.costPerNight} per night</p>
+        <button class="customer-book-room-button" id=${room.number}>Book</button>
+        </section>`);
+      })
+    }
   },
 
 
@@ -125,13 +129,16 @@ const domUpdates = {
   displayGuestsByNameAndDate(user, date) {
     $('.manager-dashboard').addClass('hide');
     $('.manager-customer-search').removeClass('hide');
+    $('.search-guests-input').val('');
+    // $('.found-user-name').text('');
     $('.found-user-name').text(`${user.name}`)
+    $('.customer-total-info').html('');
     $('.customer-total-info').append(`
         <p>${user.getFirstName()} has spent</p>
-        <span>${user.calculateTotal()}</span>
+        <span>$${user.calculateTotal()}</span>
         <p>at Overlook Hotel</p>
     `)
-
+    $('.upcoming-bookings-info').html('');
     user.futureBookings.forEach(booking => {
       $('.upcoming-bookings-info').append(`
         <section class="individual-booking-info">
@@ -145,6 +152,7 @@ const domUpdates = {
     //   deleteBookingRequest();
     // })
 
+    $('.past-bookings-info').html('');
     user.pastBookings.forEach(booking => {
       $('.past-bookings-info').append(`<section class="individual-booking-info">
                   <p>Date: ${booking.date}</p>
