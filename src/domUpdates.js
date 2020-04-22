@@ -3,7 +3,7 @@ import $ from 'jquery';
 export let currentUser = null;
 let userID;
 let allUsers = [];
-let count = 0;
+export let count = 0;
 
 const domUpdates = {
 
@@ -19,7 +19,6 @@ const domUpdates = {
     if (currentUser === 'manager') {
       $('.manager-dashboard').removeClass('hide');
       $('#booking-search-page').text('View All Rooms')
-      // domUpdates.displayManagerInfo();
       return;
     } else if (currentUser !== 'manager') {
       $('.customer-dashboard').removeClass('hide');
@@ -28,78 +27,87 @@ const domUpdates = {
   },
 
   displayManagerInfo(revenue) {
-    $('.all-manager-daily-info').html(`<section class="manager-info">
-      <p>Total Revenue: <span>$${revenue}</span></p>
-      <p></p>
-    </section>`)
+    $('.manager-info').append(`
+      <p class="revenue">Total Revenue: <span>$${revenue}</span></p>
+      `)
+    //finish this method
   },
 
-  displayAvailableRooms() {
-
+  displayAvailableRooms(rooms) {
+    $('.manager-info').append(`
+      <p class="revenue">Available Rooms: <span>${rooms}</span></p>
+      `)
   },
 
-  displayDailyRevenue() {
-
+  displayRoomsAvailableForBooking(rooms) {
+    $('.search-results-message').text('Search Results');
+    //must iterate through all rooms and display a message, so it'll have to be generic.
+    $('.booking-search-results').html('');
+    rooms.forEach(room => {
+      $('.booking-search-results').append(`<section class="individual-search-results">
+      <figure>
+        ...
+      </figure>
+      <article>
+      <p>This lovely ${room.roomType} offers ${room.numBeds} beds and a stunning ocean view when you just have to get away. Located at ${room.number}, it is a quiet space tucked away on the first floor.</p>
+      <span class="booking-price">${room.costPerNight}</span>
+      <button class="customer-book-room-button" id=${room.number}>Book</button>
+      </section>`);
+    })
   },
 
-  displayBookedRoomPercentagePerDay() {
 
+  displayBookedRoomPercentagePerDay(value) {
+    $('.manager-info').append(`
+      <p class="occupied-rooms">Percentage Of Rooms Occupied: <span>${value}%</span></p>
+      `)
   },
 
-//separate into three separate functions
+  //separate into three separate functions
   displayTotal(cost) {
     $('.customer-total').html(`<p>You have spent</p>
       <span> $${cost} </span>
       <p> in bookings </p>`)
   },
-  //
-  //    let pastBookings = currentUser.findPastBookings(currentDate);
-  //
-  //    let currentBookings = currentUser.findCurrentBookings(currentDate);
-  //    console.log('future,past,current', futureBookings, pastBookings, currentBookings)
-  //
 
+  displayPastBookings(past) {
+    if (past !== 'undefined') {
+      past.forEach(booking => {
+        $('.past-bookings-info').append(`<section class="individual-booking-info">
+                <p>Date: ${booking.date}</p>
+                <p>Cost:</p>
+                <p>Something:</p>`)
+      })
+    }
+  },
   //
-  //
-
-       displayPastBookings(past) {
-         if (past !== 'undefined') {
-              past.forEach(booking => {
-                $('.past-bookings-info').append(`<section class="individual-booking-info">
-                  <p>Date: ${booking.date}</p>
-                  <p>Cost:</p>
-                  <p>Something:</p>`)
-              })
-            }
-       },
-       //
-       displayFutureBookings(future) {
-            if (future !== 'undefined' && $('.individual-booking-info')) {
-              future.forEach(booking => {
-                $('.upcoming-bookings-info').append(`<section class="individual-booking-info">
+  displayFutureBookings(future) {
+    if (future !== 'undefined' && $('.individual-booking-info')) {
+      future.forEach(booking => {
+        $('.upcoming-bookings-info').append(`<section class="individual-booking-info">
                 <p>Date: ${booking.date}</p>
                 <p>Room Number: ${booking.roomNumber}</p>
                 </section>`)
-              })
-            }
-       },
+      })
+    }
+  },
 
-       displayCurrentBookings() {
+  displayCurrentBookings() {
 
-       },
+  },
 
-       // if (currentBookings !== 'undefined') {
-       //   currenBookings.forEach(booking => {
-       //     $('.upcoming-bookings-info').append(`<section class="individual-booking-info">
-       //       <p>Date: ${booking.date}</p>
-       //       <p>Cost:</p>
-       //       <p>Something:</p>`)
-       //   })
-       // }
+  // if (currentBookings !== 'undefined') {
+  //   currenBookings.forEach(booking => {
+  //     $('.upcoming-bookings-info').append(`<section class="individual-booking-info">
+  //       <p>Date: ${booking.date}</p>
+  //       <p>Cost:</p>
+  //       <p>Something:</p>`)
+  //   })
+  // }
 
-      // $('.individual-booking-info').append(`<p>Date:</p>
-      // <p>Cost:</p>
-      // <p>Something:</p>`)
+  // $('.individual-booking-info').append(`<p>Date:</p>
+  // <p>Cost:</p>
+  // <p>Something:</p>`)
 
   filterRoomByType() {
     //should filter room in the customer search page by type
@@ -142,7 +150,7 @@ const domUpdates = {
                   <p>Date: ${booking.date}</p>
                   <p>Room Number: ${booking.roomNumber}</p>
                 </section>`)
-                console.log('hi');
+      console.log('hi');
     })
   },
 
@@ -163,7 +171,7 @@ const domUpdates = {
     }
 
     userRepository.forEach(user => {
-      if (user.username === $('#username').val() && $('#password').val() === 'overlook2020')  {
+      if (user.username === $('#username').val() && $('#password').val() === 'overlook2020') {
         currentUser = user;
         userID = user.id;
         domUpdates.displayHomePage();

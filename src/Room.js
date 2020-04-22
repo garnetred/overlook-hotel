@@ -13,7 +13,9 @@ class Room {
 
   //could use booking data here as object literal without passing it in as a parameter
   createNewBooking(user, date) {
-    let url = 'https://fe-apps.herokuapp.com/api/v1/overlook/1904/bookings/bookings'
+    console.log(date);
+    console.log(this);
+    let url = 'https://fe-apps.herokuapp.com/api/v1/overlook/1904/bookings/bookings';
     let bookingInfo = {
       'userID': user.id,
       'date': date,
