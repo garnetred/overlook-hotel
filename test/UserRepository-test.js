@@ -11,10 +11,15 @@ describe('UserRepository', function() {
   let users, username;
   //create variable for date
   chai.spy.on(domUpdates, ['login'], () => true);
+
   beforeEach(() => {
     users = new UserRepository(userTestData);
     username = 'manager';
   });
+
+  afterEach(() => {
+    chai.spy.restore(domUpdates);
+  })
 
   it('should be an instance of UserRepository', function() {
     expect(users).to.be.an.instanceof(UserRepository);
@@ -68,5 +73,11 @@ describe('UserRepository', function() {
         name: "Kennedi Emard"
       });
     });
+
+    // it('should be able to find a specific user\'s user name', function() {
+    //   users.getUserName();
+    //   expect(domUpdates.login()).to.have.been.called(1);
+    //   // expect(domUpdates.login()).to.have.been.called.with('this.allUsers')
+    // })
 
 });

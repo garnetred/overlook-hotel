@@ -8,11 +8,11 @@ class User {
     this.id = userData.id;
     this.name = userData.name;
     this.firstName = this.getFirstName();
-    this.allBookings = this.findAllBookings();
     this.currentBookings = null;
     this.username = `customer${userData.id}`
     this.password = 'overlook2020';
-    this.allRooms = this.findAllRooms();
+    this.futureBookings = null;
+    this.pastBookings = null;
 
   }
 
@@ -28,21 +28,22 @@ class User {
       total += room.costPerNight;
       return Number(total.toFixed(2));
     }, 0)
-
+    domUpdates.displayTotal(totalCost)
     return totalCost;
   }
 
-  findAllBookings() {
-    return bookingTestData.filter(booking => booking.userID === this.id);
+  findAllBookings(bookings) {
+    this.allBookings = bookings.filter(booking => booking.userID === this.id);
+    return this.allBookings;
   }
 
 //needs refactoring to get rid of nested if statement
-  findAllRooms() {
+  findAllRooms(rooms) {
     let bookedRoomNumbers;
     let matchedRooms = [];
     if (this.allBookings.length > 0) {
       bookedRoomNumbers = this.allBookings.filter(booking => booking.roomNumber).map(booking => booking.roomNumber);
-      roomTestData.map(room => {
+      rooms.map(room => {
         bookedRoomNumbers.forEach(number =>  {
           if (room.number === number) {
             matchedRooms.push(room)
@@ -50,6 +51,7 @@ class User {
         });
       });
     }
+    this.allRooms = matchedRooms;
     return matchedRooms;
   }
 
@@ -59,16 +61,20 @@ class User {
   }
 
   findPastBookings(date) {
-    let pastBookings = this.allBookings.filter(booking => date > booking.date);
-    return pastBookings;
+    this.pastBookings = this.allBookings.filter(booking => date > booking.date);
+    domUpdates.displayPastBookings(this.pastBookings);
+    console.log('this function is being invoked')
+    return this.pastBookings;
   }
 
   findFutureBookings(date) {
-    let futureBookings = this.allBookings.filter(booking => date < booking.date);
+    this.futureBookings = this.allBookings.filter(booking => date < booking.date);
+    domUpdates.displayFutureBookings(this.futureBookings);
     // domUpdates.displayCustomerInfo(futureBookings, this.currentBookings);
-    return futureBookings;
+    return this.futureBookings;
   }
 
 }
+//how do I invoke methods in this class when current user is undefined in main.js? do I delete the class?
 
 export default User;

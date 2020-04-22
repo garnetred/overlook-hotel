@@ -23,6 +23,7 @@ class BookingRepository {
       total += room.costPerNight;
       return total;
     }, 0)
+    domUpdates.displayManagerInfo(dailyRevenue);
     return dailyRevenue;
   }
 
@@ -47,14 +48,24 @@ class BookingRepository {
   findAvailableRoomsByDateAndType(rooms, type, date) {
     let availableRoomsByDate = [];
     let availableRoomsByDateAndType = [];
-      let dailyBookings = this.allBookings.filter(booking => booking.date === date);
-    let bookedRoomNumbers = dailyBookings.map(booking => booking.roomNumber)
-    let unavailableRooms = this.allBookings.filter(booking => booking.date === date);
-    console.log('unavailable', unavailableRooms)
+      // let dailyBookings = this.allBookings.filter(booking => booking.date === date);
+      let availableBookings = this.allBookings.filter(booking => booking.date !== date);
+      //grabs all rooms that are not booked on that date but doesn't account for the fact that some rooms are in the array twice
+      console.log(availableBookings)
+    let availableRoomNumbers = availableBookings.map(booking => booking.roomNumber)
+    // console.log('unavailable', unavailableRooms)
     //this is in the regular bookings array though, would need to convert to the rooms one
-
-    availableRoomsByDate = rooms.filter(room => unavailableRooms.includes(room));
-
+    //array of rooms that
+    rooms.filter(room => {
+      availableBookings.forEach(booking => {
+        if (booking.roomNumber === room.number) {
+          // console.log('booking num', booking.roomNumber, 'room num', room.number)
+          availableRoomsByDate.push(room);
+        }
+      })
+    });
+    // console.log(availableRooms);
+    // console.log(availableRoomsByDate);
 
     // rooms.forEach(room => {
     //   return bookedRoomNumbers.forEach(number => {
@@ -63,23 +74,33 @@ class BookingRepository {
     //     }
     //   })
     // })
-    console.log('available rooms', availableRoomsByDate)
     //maybe I should use all bookings and just pass in the date
 
-    availableRoomsByDateAndType = availableRoomsByDate.filter(room => room.roomType.includes(type));
+    availableRoomsByDateAndType = availableRoomsByDate.filter(room => room.roomType === type);
 
     // console.log(availableRoomsByDateAndType);
     return availableRoomsByDateAndType;
   }
 
-  deleteBooking(id) {
-    let url = `https://fe-apps.herokuapp.com/api/v1/overlook/1904/bookings/bookings${id}`
+  deleteBooking(id, event) {
+    let url = `https://fe-apps.herokuapp.com/api/v1/overlook/1904/bookings/bookings/`
+    let newID = Number(id);
+    console.log(newID)
+    domUpdates.deleteBooking(newID, event);
+
     return fetch(url, {
         method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          'id': newID
+        })
       })
       .then(response => response.json())
       .then(response => console.log(response))
       .catch(err => console.error(err))
+
   }
 }
 

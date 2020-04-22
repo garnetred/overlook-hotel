@@ -78,9 +78,9 @@ describe('User', function() {
   })
 
   it('should be able to find all bookings', function() {
-    user1.findAllBookings();
-    user2.findAllBookings();
-    user3.findAllBookings();
+    user1.findAllBookings(bookingTestData);
+    user2.findAllBookings(bookingTestData);
+    user3.findAllBookings(bookingTestData);
 
     expect(user1.allBookings).to.deep.equal([{
         id: "5fwrgu4i7k55hl6t8",
