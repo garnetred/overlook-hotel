@@ -11,6 +11,8 @@ class User {
     this.currentBookings = null;
     this.username = `customer${userData.id}`
     this.password = 'overlook2020';
+    this.futureBookings = null;
+    this.pastBookings = null;
 
   }
 
@@ -59,16 +61,16 @@ class User {
   }
 
   findPastBookings(date) {
-    let pastBookings = this.allBookings.filter(booking => date > booking.date);
-    domUpdates.displayPastBookings(pastBookings);
-    return pastBookings;
+    this.pastBookings = this.allBookings.filter(booking => date > booking.date);
+    // domUpdates.displayPastBookings(this.pastBookings);
+    return this.pastBookings;
   }
 
   findFutureBookings(date) {
-    let futureBookings = this.allBookings.filter(booking => date < booking.date);
-    domUpdates.displayFutureBookings(futureBookings);
+    this.futureBookings = this.allBookings.filter(booking => date < booking.date);
+    // domUpdates.displayFutureBookings(this.futureBookings);
     // domUpdates.displayCustomerInfo(futureBookings, this.currentBookings);
-    return futureBookings;
+    return this.futureBookings;
   }
 
 }

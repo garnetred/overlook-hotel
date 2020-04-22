@@ -62,28 +62,27 @@ const domUpdates = {
   //
   //
 
-       displayPastBookings(past) {
-         if (past !== 'undefined') {
-              past.forEach(booking => {
-                $('.past-bookings-info').append(`<section class="individual-booking-info">
-                  <p>Date: ${booking.date}</p>
-                  <p>Cost:</p>
-                  <p>Something:</p>`)
-              })
-            }
-       },
-
-       displayFutureBookings(future) {
-         console.log(future);
-            if (future !== 'undefined' && $('.individual-booking-info')) {
-              future.forEach(booking => {
-                $('.upcoming-bookings-info').append(`<section class="individual-booking-info">
-                <p>Date: ${booking.date}</p>
-                <p>Room Number: ${booking.roomNumber}</p>
-                </section>`)
-              })
-            }
-       },
+       // displayPastBookings(past) {
+       //   if (past !== 'undefined') {
+       //        past.forEach(booking => {
+       //          $('.past-bookings-info').append(`<section class="individual-booking-info">
+       //            <p>Date: ${booking.date}</p>
+       //            <p>Cost:</p>
+       //            <p>Something:</p>`)
+       //        })
+       //      }
+       // },
+       //
+       // displayFutureBookings(future) {
+       //      if (future !== 'undefined' && $('.individual-booking-info')) {
+       //        future.forEach(booking => {
+       //          $('.upcoming-bookings-info').append(`<section class="individual-booking-info">
+       //          <p>Date: ${booking.date}</p>
+       //          <p>Room Number: ${booking.roomNumber}</p>
+       //          </section>`)
+       //        })
+       //      }
+       // },
 
        displayCurrentBookings() {
 
@@ -115,27 +114,36 @@ const domUpdates = {
     $('.navbar').removeClass('hide')
   },
 
-  displayGuestsByNameAndDate(user) {
-    // currentUser.findAllRooms();
-
+  displayGuestsByNameAndDate(user, date) {
+    //maybe I shouldn't let this be invoked right away?
+    //or maybe this function should do something else?
+    //it could maybe find the user by name, but find an instantiated user?
     $('.manager-dashboard').addClass('hide');
     $('.manager-customer-search').removeClass('hide');
-
-    $('.manager-customer-search').append(`<section class="manager-search-items">
-      <h3 class="found-user-name">${user.name}</h3>
-      <button class="manager-book-room">Book A Room</button>
-
-      <label><input type="text" placeholder="Search Guests" class="search-guests-input" aria-label="Search"></label>
-      <button type="button" class="manager-search-guests-button">GO</button>
-    </section>
-    <section class="manager-customer-info-container">
-      <aside>
+    $('.found-user-name').text(`${user.name}`)
+    $('.customer-total-info').append(`
         <p>${user.getFirstName()} has spent</p>
         <span>${user.calculateTotal()}</span>
         <p>at Overlook Hotel</p>
-      </aside>
-    </section>`)
-    $('.customer-search-all-bookings').append
+    `)
+
+    user.futureBookings.forEach(booking => {
+      $('.upcoming-bookings-info').append(`
+        <section class="individual-booking-info">
+        <p>Date: ${booking.date}</p>
+        <p>Room Number: ${booking.roomNumber}</p>
+        </section>
+          <button>Cancel</button>`)
+          console.log('hey');
+    })
+
+    user.pastBookings.forEach(booking => {
+      $('.past-bookings-info').append(`<section class="individual-booking-info">
+                  <p>Date: ${booking.date}</p>
+                  <p>Room Number: ${booking.roomNumber}</p>
+                </section>`)
+                console.log('hi');
+    })
   },
 
   deleteBooking() {

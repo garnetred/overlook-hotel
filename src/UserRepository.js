@@ -15,9 +15,15 @@ class UserRepository {
   // }
 
 
-  findUserByName(person) {
+  findUserByName(person, date) {
     let foundUser = this.allUsers.find(user => user.name.toLowerCase().includes(person.toLowerCase()));
-    domUpdates.displayGuestsByNameAndDate(foundUser);
+    console.log('user in userrepository', foundUser);
+    // foundUser.findAllBookings(date);
+    // foundUser.findAllRooms(date)
+    foundUser.findPastBookings(date);
+    foundUser.findCurrentBookings(date)
+    foundUser.findFutureBookings(date);
+    setTimeout(domUpdates.displayGuestsByNameAndDate(foundUser, date), 5000);
     return foundUser;
 }
   //these tests fail but the code works because the instantiated users now have different information, need to pull this from user class

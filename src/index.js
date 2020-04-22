@@ -83,17 +83,19 @@ function findAllRoomsAndBookingsPerUser() {
   userRepository.allUsers.forEach(user => {
     user.findAllBookings(bookingRepository.allBookings)
     user.findAllRooms(allRooms);
+    // user.findFutureBookings(currentDate);
+    // user.findCurrentBookings(currentDate);
+    // user.findPastBookings(currentDate);
   })
 }
 
-console.log(currentUser);
   $('.login-form').submit(function(event) {
     event.preventDefault();
     console.log(userRepository);
     domUpdates.login(userRepository.allUsers)
     if (currentUser !== 'manager') {
-      // currentUser.findAllBookings(bookingRepository.allBookings);
-      // currentUser.findAllRooms(allRooms);
+      currentUser.findAllBookings(bookingRepository.allBookings);
+      currentUser.findAllRooms(allRooms);
       currentUser.calculateTotal();
       currentUser.findFutureBookings(currentDate);
       currentUser.findPastBookings(currentDate);
@@ -104,19 +106,25 @@ console.log(currentUser);
     }
   });
   $('.account-text').click(function() {
-    domUpdates.displayHomePage();
-    currentUser.findFutureBookings(currentDate);
-    currentUser.findPastBookings(currentDate);
     if (currentUser === 'manager') {
       bookingRepository.findBookedRoomPercentagePerDay(allRooms, currentDate);
       bookingRepository.calculateDailyRevenue(currentDate, allRooms);
       bookingRepository.findAllAvailableRooms(allRooms, currentDate);
+      domUpdates.displayHomePage();
+      console.log('in current user manager')
+    } else {
+      domUpdates.displayHomePage();
+      currentUser.findFutureBookings(currentDate);
+      currentUser.findPastBookings(currentDate);
     }
   });
   $('.logout-text').click(domUpdates.logout);
   $('#booking-search-page').click(domUpdates.displaySearchPage)
   $('.manager-search-guests-button').click(function() {
-    userRepository.findUserByName($('.search-guests-input').val())
+    // $('.search-guests-input').val().findPastBookings(currentDate);
+    // $('.search-guests-input').val().findFutureBookings(current);
+    // $('.search-guests-input').val().findCurrentBookings(current);
+    userRepository.findUserByName($('.search-guests-input').val(), currentDate)
   })
 
 
