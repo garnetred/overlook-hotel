@@ -18,12 +18,13 @@ describe('BookingRepository', function() {
     currentDate = '2020/02/05';
     secondDate = "2020/02/07";
     chai.spy.on(booking, ['deleteBooking'], () => true);
-    chai.spy.on(booking2, ['deleteBooking'], () => true);
+    chai.spy.on(domUpdates, ['displayManagerInfo'], () => true);
   });
 
   afterEach(() => {
     chai.spy.restore(booking);
     chai.spy.restore(booking2);
+    chai.spy.restore(domUpdates);
   });
 
   it('should be an instance of Booking Booking Repository', function() {
@@ -151,6 +152,7 @@ describe('BookingRepository', function() {
     expect(booking.calculateDailyRevenue(currentDate, roomTestData)).to.equal(609.71);
 
     expect(booking2.calculateDailyRevenue("2020/02/07", roomTestData)).to.equal(516.53);
+    expect(domUpdates.displayManagerInfo).to.have.been.called(2);
   });
 
   // it('should retrieve all daily bookings', function() {

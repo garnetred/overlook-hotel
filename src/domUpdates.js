@@ -1,44 +1,11 @@
 import $ from 'jquery';
-import User from './User';
-import UserRepository from './UserRepository';
-import Room from './Room';
-import Booking from './Booking';
-import BookingRepository from './BookingRepository';
 
-let user;
-let userRepository;
-let room;
-let allRooms;
-let booking;
-let bookingRepository;
-let currentDate = "2020/02/05";
-let currentUser = null;
+export let currentUser = null;
 let userID;
 let allUsers = [];
 let count = 0;
 
 const domUpdates = {
-
-  instantiateData(users, rooms, bookings) {
-    users.forEach(person => {
-      user = new User(person)
-      allUsers.push(user)
-      return user;
-    })
-
-    allRooms = rooms;
-    rooms.forEach(place => {
-
-      return room = new Room(place);
-      room;
-    })
-    bookings.forEach(booking => {
-      return booking = new Booking(booking);
-    })
-
-    bookingRepository = new BookingRepository(bookings);
-    userRepository = new UserRepository(users)
-  },
 
   displayHomePage() {
     count++;
@@ -52,59 +19,88 @@ const domUpdates = {
     if (currentUser === 'manager') {
       $('.manager-dashboard').removeClass('hide');
       $('#booking-search-page').text('View All Rooms')
-      domUpdates.displayManagerInfo();
+      // domUpdates.displayManagerInfo();
       return;
     } else if (currentUser !== 'manager') {
       $('.customer-dashboard').removeClass('hide');
       $('.customer-welcome-message').text(`Welcome, ${currentUser.firstName}`)
     }
-    if (count <= 1) {
-      domUpdates.displayCustomerInfo();
-    }
   },
 
-  displayManagerInfo() {
-    console.log(allRooms)
+  displayManagerInfo(revenue) {
     $('.all-manager-daily-info').html(`<section class="manager-info">
-      <p>Available Rooms:<span>${bookingRepository.findAllAvailableRooms(allRooms, currentDate)}</span></p>
-      <p>Total Revenue: <span>$${bookingRepository.calculateDailyRevenue(currentDate, allRooms)}</span></p>
-      <p>Percentage of Rooms Occupied: <span>${bookingRepository.findBookedRoomPercentagePerDay(allRooms, currentDate)}%</span></p>
+      <p>Total Revenue: <span>$${revenue}</span></p>
       <p></p>
     </section>`)
   },
 
-  displayCustomerInfo() {
+  displayAvailableRooms() {
+
+  },
+
+  displayDailyRevenue() {
+
+  },
+
+  displayBookedRoomPercentagePerDay() {
+
+  },
+
+//separate into three separate functions
+  displayTotal(cost) {
     $('.customer-total').html(`<p>You have spent</p>
-      <span> $${currentUser.calculateTotal()} </span>
+      <span> $${cost} </span>
       <p> in bookings </p>`)
-     let futureBookings = currentUser.findFutureBookings(currentDate);
+  },
+  //
+  //    let pastBookings = currentUser.findPastBookings(currentDate);
+  //
+  //    let currentBookings = currentUser.findCurrentBookings(currentDate);
+  //    console.log('future,past,current', futureBookings, pastBookings, currentBookings)
+  //
 
-     let pastBookings = currentUser.findPastBookings(currentDate);
+  //
+  //
 
-     let currentBookings = currentUser.findCurrentBookings(currentDate);
-     console.log(futureBookings);
-     if (futureBookings !== 'undefined' && $('.individual-booking-info')) {
-       futureBookings.forEach(booking => {
-         $('.upcoming-bookings-info').append(`<section class="individual-booking-info">
-         <p>Date: ${booking.date}</p>
-         <p>Room Number: ${booking.roomNumber}</p>
-         </section>`)
-       })
+       displayPastBookings(past) {
+         if (past !== 'undefined') {
+              past.forEach(booking => {
+                $('.past-bookings-info').append(`<section class="individual-booking-info">
+                  <p>Date: ${booking.date}</p>
+                  <p>Cost:</p>
+                  <p>Something:</p>`)
+              })
+            }
+       },
 
-       if (pastBookings !== 'undefined') {
-         pastBookings.forEach(booking => {
-           $('.past-bookings-info').append(`<section class="individual-booking-info">
-             <p>Date: ${booking.date}</p>
-             <p>Cost:</p>
-             <p>Something:</p>`)
-         })
-       }
+       displayFutureBookings(future) {
+         console.log(future);
+            if (future !== 'undefined' && $('.individual-booking-info')) {
+              future.forEach(booking => {
+                $('.upcoming-bookings-info').append(`<section class="individual-booking-info">
+                <p>Date: ${booking.date}</p>
+                <p>Room Number: ${booking.roomNumber}</p>
+                </section>`)
+              })
+            }
+       },
 
-     }
+       displayCurrentBookings() {
+
+       },
+
+       // if (currentBookings !== 'undefined') {
+       //   currenBookings.forEach(booking => {
+       //     $('.upcoming-bookings-info').append(`<section class="individual-booking-info">
+       //       <p>Date: ${booking.date}</p>
+       //       <p>Cost:</p>
+       //       <p>Something:</p>`)
+       //   })
+       // }
+
       // $('.individual-booking-info').append(`<p>Date:</p>
       // <p>Cost:</p>
       // <p>Something:</p>`)
-  },
 
   filterRoomByType() {
     //should filter room in the customer search page by type
@@ -119,15 +115,14 @@ const domUpdates = {
     $('.navbar').removeClass('hide')
   },
 
-  displayGuestsByNameAndDate() {
-
-    let foundUser = new User(userRepository.findUserByName($('.search-guests-input').val()))
+  displayGuestsByNameAndDate(user) {
+    // currentUser.findAllRooms();
 
     $('.manager-dashboard').addClass('hide');
     $('.manager-customer-search').removeClass('hide');
 
     $('.manager-customer-search').append(`<section class="manager-search-items">
-      <h3 class="found-user-name">${foundUser.name}</h3>
+      <h3 class="found-user-name">${user.name}</h3>
       <button class="manager-book-room">Book A Room</button>
 
       <label><input type="text" placeholder="Search Guests" class="search-guests-input" aria-label="Search"></label>
@@ -135,38 +130,30 @@ const domUpdates = {
     </section>
     <section class="manager-customer-info-container">
       <aside>
-        <p>${foundUser.getFirstName()} has spent</p>
-        <span>${foundUser.calculateTotal()}</span>
+        <p>${user.getFirstName()} has spent</p>
+        <span>${user.calculateTotal()}</span>
         <p>at Overlook Hotel</p>
       </aside>
     </section>`)
-    // console.log(userRepository)
-
-    // let found = allUsers.find(user => user.name.includes($('.search-guests-input').val()))
-
-
-   //  let guess = allUsers.find(user =>
-   // console.log(user.name.indexOf('kel')))
-   // console.log(guess);
-   //
-   // allUsers.find(user => console.log(user.name === $('.search-guests-input').val()))
+    $('.customer-search-all-bookings').append
   },
 
   deleteBooking() {
     //should only work if current user's username is "manager"
   },
 
-  login() {
-    if ($('#username').val() === 'manager' && user.password === 'overlook2020') {
+  login(userRepository) {
+    if ($('#username').val() === 'manager' && $('#password').val() === 'overlook2020') {
       userID = null;
       currentUser = 'manager';
       domUpdates.displayHomePage();
       return;
     }
 
-    allUsers.forEach(user => {
-      if (user.username === $('#username').val() && user.password === 'overlook2020')  {
+    userRepository.forEach(user => {
+      if (user.username === $('#username').val() && $('#password').val() === 'overlook2020')  {
         currentUser = user;
+        userID = user.id;
         domUpdates.displayHomePage();
         return;
       } else {
@@ -176,20 +163,17 @@ const domUpdates = {
   },
 
   logout() {
+    currentUser = null;
+    console.log(currentUser)
     let allPages = $('body').children().toArray()
     allPages.forEach(page => {
       $(page).addClass('hide')
     });
     $('.login-page').removeClass('hide');
-    currentUser = null;
   },
 
   addBookingForSpecifiedUser() {
     //should only work if username is "manager"
-  },
-
-  changePageView() {
-    //should change the page view depending on which page in the navbar has been clicked
   }
 
 }
