@@ -1,4 +1,5 @@
 import domUpdates from './domUpdates'
+import * as moment from 'moment';
 
 
 class BookingRepository {
@@ -9,7 +10,10 @@ class BookingRepository {
   calculateDailyRevenue(date, rooms) {
     let bookedRooms = [];
     let dailyRevenue;
-    let dailyBookings = this.allBookings.filter(booking => booking.date === date);
+    let dailyBookings = this.allBookings.filter(booking => {
+     return moment(booking.date).format('YYYYMMDD') === moment(date).format('YYYYMMDD');
+   });
+
     let roomNumbers = dailyBookings.map(booking => booking.roomNumber);
     rooms.filter(room => {
       return roomNumbers.forEach(number => {
@@ -29,14 +33,18 @@ class BookingRepository {
 
 
   findBookedRoomPercentagePerDay(rooms, date) {
-    let dailyBookings = this.allBookings.filter(booking => booking.date === date);
+    let dailyBookings = this.allBookings.filter(booking => {
+    return moment(booking.date).format('YYYYMMDD') === moment(date).format('YYYYMMDD');
+  });
     let decimal = (dailyBookings.length / rooms.length * 100).toFixed(0);
     domUpdates.displayBookedRoomPercentagePerDay(Number(decimal))
     return Number(decimal);
   }
 
   findAllAvailableRooms(rooms, date) {
-    let dailyBookings = this.allBookings.filter(booking => booking.date === date);
+    let dailyBookings = this.allBookings.filter(booking => {
+         return moment(booking.date).format('YYYYMMDD') === moment(date).format('YYYYMMDD');
+       });
     let availableRooms = rooms.length - dailyBookings.length;
     domUpdates.displayAvailableRooms(availableRooms);
     return availableRooms;
@@ -45,7 +53,9 @@ class BookingRepository {
   findAvailableRoomsByDateAndType(rooms, type, date) {
     let availableRoomsByDate = [];
     let availableRoomsByDateAndType = [];
-    let bookedRoomNumbers = this.allBookings.filter(booking => booking.date === date).map(booking => booking.roomNumber);
+    let bookedRoomNumbers = this.allBookings.filter(booking => {
+      return moment(booking.date).format('YYYYMMDD') === moment(date).format('YYYYMMDD');
+    }).map(booking => booking.roomNumber);
 
     let allRoomNumbers = rooms.map(room => room.number);
 
