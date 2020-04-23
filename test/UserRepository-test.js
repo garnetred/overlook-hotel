@@ -1,5 +1,6 @@
 import chai from 'chai';
 import UserRepository from '../src/UserRepository';
+import User from '../src/User';
 import userTestData from '../data/users-test-data'
 const expect = chai.expect;
 import spies from 'chai-spies';
@@ -8,17 +9,24 @@ chai.use(spies);
 
 
 describe('UserRepository', function() {
-  let users, username;
-  //create variable for date
-  chai.spy.on(domUpdates, ['login'], () => true);
+  let users, currentDate;
+  let foundUser;
+
 
   beforeEach(() => {
     users = new UserRepository(userTestData);
-    username = 'manager';
+    foundUser = new User(userTestData[0]);
+    currentDate = '2020/02/05';
+    chai.spy.on(foundUser, ['findPastBookings', 'findCurrentBookings',
+      'findFutureBookings'
+    ], () => true);
+    chai.spy.on(setTimeout, ['domUpdates.displayGuestsByNameAndDate'], () => true);
+
   });
 
   afterEach(() => {
     chai.spy.restore(domUpdates);
+    chai.spy.restore(foundUser);
   })
 
   it('should be an instance of UserRepository', function() {
@@ -56,28 +64,26 @@ describe('UserRepository', function() {
   });
 
   it('should be able to find a specific user by their name', function() {
-    users.findUserByName('Kelvin');
-    users.findUserByName("Emard");
 
-    expect(users.findUserByName('Leatha Ullrich')).to.deep.equal({
-        id: 1,
-        name: "Leatha Ullrich"
-      });
-    expect(users.findUserByName('Kelvin')).to.deep.equal({
+    expect(users.findUserByName('Leatha Ullrich', currentDate)).to.deep.equal({
+      id: 1,
+      name: "Leatha Ullrich"
+    });
+    expect(users.findUserByName('Kelvin', currentDate)).to.deep.equal({
       id: 3,
       name: "Kelvin Schiller"
     });
 
-    expect(users.findUserByName('Emard')).to.deep.equal({
-        id: 4,
-        name: "Kennedi Emard"
-      });
+    expect(users.findUserByName('Emard', currentDate)).to.deep.equal({
+      id: 4,
+
+      name: "Kennedi Emard"
     });
-
-    // it('should be able to find a specific user\'s user name', function() {
-    //   users.getUserName();
-    //   expect(domUpdates.login()).to.have.been.called(1);
-    //   // expect(domUpdates.login()).to.have.been.called.with('this.allUsers')
-    // })
-
+    expect(foundUser.findPastBookings(currentDate)).to.have.been.called(3);
+    expect(foundUser.findCurrentBookings).to.have.been.called(3);
+    expect(foundUser.findFutureBookings).to.have.been.called(3);
+    expect(foundUser.findPastBookings).to.equal(true);
+    expect(foundUser.findCurrentBookings).to.equal(true);
+    expect(foundUser.findFutureBookings).to.equal(true);
+  });
 });

@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en-US">
 <meta charset="utf-8">
+
 <head>
   <title>Overlook Hotel</title>
-  <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
 </head>
 
 <body>
@@ -20,148 +20,111 @@
   </section>
   <nav class="navbar hide">
     <ul>
-      <li><button type="button" id="booking-search-page" class="booking">
-        Reserve A Room
-      </button></li>
-      <li>
+      <li><button type="button" id="booking-search-page" class="booking" tabindex="1">
+          Reserve A Room
+        </button></li>
+      <li tabindex="2">
         <h1 class="account-text">My Account</h1>
       </li>
-      <li>
+      <li tabindex="3">
         <h1 class="logout-text">Logout</h1>
       </li>
     </ul>
   </nav>
-    <section class="customer-dashboard hide">
-      <h3 class="customer-welcome-message"></h3>
-      <section class="customer-dashboard-container">
-        <main class="customer-all-bookings">
-          <h3 class="current-bookings">Current Bookings</h3>
-          <section class="current-bookings-info">
-          </section>
-          <h3 class="upcoming-bookings">Upcoming Bookings</h3>
-          <section class="upcoming-bookings-info">
-          </section>
-          <h3 class="past-bookings">Past Bookings</h3>
-          <section class="past-bookings-info">
-          </section>
-        </main>
-        <aside class="customer-information">
-          <section class="customer-total">
+  <section class="customer-dashboard hide">
+    <h3 class="customer-welcome-message"></h3>
+    <section class="customer-dashboard-container">
+      <main class="customer-all-bookings">
+        <h3 class="current-bookings">Current Bookings</h3>
+        <section class="current-bookings-info">
+        </section>
+        <h3 class="upcoming-bookings">Upcoming Bookings</h3>
+        <section class="upcoming-bookings-info">
+        </section>
+        <h3 class="past-bookings">Past Bookings</h3>
+        <section class="past-bookings-info">
+        </section>
+      </main>
+      <aside class="customer-information">
+        <section class="customer-total">
 
-          </section>
-        </aside>
-      </section>
+        </section>
+      </aside>
     </section>
-    <section class="manager-dashboard hide">
-      <h3 class="manager-welcome-message">Welcome, Overlook Hotel Manager</h3>
-      <section class="manager-dashboard-container">
-        <main class="manager-daily-info">
-          <h3 class="manager-daily-overview">Daily Overview</h3>
-          <section class="all-manager-daily-info">
-            <section class="manager-info">
-              <!-- <p>Available Rooms:<span>20</span></p>
-              <p>Total Revenue: <span>$600</span></p>
-              <p>Percentage of Rooms Occupied: <span>90%</span></p>
-              <p></p> -->
-            </section>
+  </section>
+  <section class="manager-dashboard hide">
+    <h3 class="manager-welcome-message">Welcome, Overlook Hotel Manager</h3>
+    <section class="manager-dashboard-container">
+      <main class="manager-daily-info">
+        <h3 class="manager-daily-overview">Daily Overview</h3>
+        <section class="all-manager-daily-info">
+          <section class="manager-info">
           </section>
-        </main>
-        <aside class="manager-guest-search-container">
+        </section>
+      </main>
+      <aside class="manager-guest-search-container">
 
-
-          <label><input type="text" placeholder="Search Guests" class="search-guests-input" aria-label="Search"></label>
-
-          <button type="button" class="manager-search-guests-button">GO</button>
-        </aside>
-      </section>
-    </section>
-    <section class="manager-customer-search hide">
-      <section class="manager-search-items">
-        <h3 class="found-user-name"></h3>
-        <button class="manager-book-room">Book A Room</button>
 
         <label><input type="text" placeholder="Search Guests" class="search-guests-input" aria-label="Search"></label>
+
         <button type="button" class="manager-search-guests-button">GO</button>
-      </section>
-      <section class="manager-customer-info-container">
-        <aside class="customer-total-info">
-          <!-- <p>Sarah has spent</p>
-          <span>$$$</span>
-          <p>at Overlook Hotel</p> -->
-        </aside>
-        <main class="customer-all-bookings">
-          <h3 class="current-bookings">Current Bookings</h3>
-          <section class="current-bookings-info">
-          </section>
-
-          <h3 class="upcoming-bookings">Upcoming Bookings</h3>
-          <section class="upcoming-bookings-info">
-            <!-- <section class="individual-booking-info">
-              <p>Date</p>
-              <p>Room Number</p>
-              <p>Room Type</p>
-              <p>Cost:</p>
-            </section> -->
-
-          </section>
-          <h3 class="past-bookings">Past Bookings</h3>
-          <section class="past-bookings-info">
-          <!-- <section class="individual-booking-info">
-            <p>Date</p>
-            <p>Room Number</p>
-            <p>Room Type</p>
-            <p>Cost:</p>
-          </section> -->
-        </section>
-        </main>
-      </section>
+      </aside>
     </section>
+  </section>
+  <section class="manager-customer-search hide">
+    <section class="manager-search-items">
+      <h3 class="found-user-name"></h3>
+      <button class="manager-book-room">Book A Room</button>
+
+      <label><input type="text" placeholder="Search Guests" class="search-guests-input" aria-label="Search"></label>
+      <button type="button" class="manager-search-guests-button">GO</button>
+    </section>
+    <section class="manager-customer-info-container">
+      <aside class="customer-total-info">
+      </aside>
+      <main class="customer-all-bookings">
+        <h3 class="current-bookings">Current Bookings</h3>
+        <section class="current-bookings-info">
+        </section>
+
+        <h3 class="upcoming-bookings">Upcoming Bookings</h3>
+        <section class="upcoming-bookings-info">
+        </section>
+        <h3 class="past-bookings">Past Bookings</h3>
+        <section class="past-bookings-info">
+        </section>
+      </main>
+    </section>
+  </section>
   <section class="booking-search hide">
-    <!-- <nav>
-    </nav> -->
     <main class="booking-search-container">
       <section class="booking-search-filter">
         <form id="booking-search-form">
           <section class="check-in-date">
             <label for="date-search" class="date-search">Check-In Date</label>
-            <input type="date" aria-label="date-search" class="date">
+            <input type="date" aria-label="date-search" class="date" required>
           </section>
           <section class="booking-checkbox-options">
             <p>Room Types</p>
-            <label for="junior-suite"><input type="checkbox" id="junior-suite" name="junior-suite" class="room-type">Junior Suite</label>
+            <label for="junior-suite"><input type="checkbox" id="junior-suite" name="junior-suite" class="room-type" tabindex="0">Junior Suite</label>
 
-            <label for="residential-suite"><input type="checkbox" id="residential-suite" name="residential-suite" class="room-type">Residential Suite</label>
+            <label for="residential-suite"><input type="checkbox" id="residential-suite" name="residential-suite" class="room-type" tabindex="0">Residential Suite</label>
 
-            <label for="suite"><input type="checkbox" id="suite" name="suite" class="room-type">Suite</label>
+            <label for="suite"><input type="checkbox" id="suite" name="suite" class="room-type" tabindex="0">Suite</label>
 
-            <label for="single-room"><input type="checkbox" id="single-room" name="single-room" class="room-type">Single Room</label>
+            <label for="single-room"><input type="checkbox" id="single-room" name="single-room" class="room-type" tabindex="0">Single Room</label>
             <button type="submit" id="booking-search-button">Search</button>
         </form>
       </section>
       <section class="booking-search-results">
         <h3 class="search-results-message"></h3>
-        <!-- <section class="individual-search-results"> -->
-          <!-- <figure>
-            ...
-          </figure>
-          <article>
-            <p>This junior suite offers...</p>
-            <p>It also comes equipped with a bidet, so no more running out of toilet paper.</p>
-              <span class="booking-price">Cost</span>
-            </p>
-          </article>
-          <button id="customer-book-room-button">Book</button>
-        </section> -->
-      <!-- </section> -->
+      </section>
+    </main>
   </section>
-  </main>
-</section>
-<section class="successful-booking-info hide">
-  <section class="successful-booking-message hide">
+  <section class="successful-booking-info hide">
+    <section class="successful-booking-message hide">
+    </section>
   </section>
-</section>
-
-  <!-- Do not include the index.js or main.bundle.js file here - it is done automatically by the webpack server -->
 </body>
 
 </html>

@@ -4,7 +4,6 @@ import domUpdates from './domUpdates'
 class BookingRepository {
   constructor(data) {
     this.allBookings = data;
-    // this.dailyBookings = null;
   }
 
   calculateDailyRevenue(date, rooms) {
@@ -28,10 +27,6 @@ class BookingRepository {
     return dailyRevenue;
   }
 
-  //may need to be refactored so this value is always available to us
-  // findDailyBookings(date = '2020/02/05') {
-  //   this.dailyBookings =
-  // }
 
   findBookedRoomPercentagePerDay(rooms, date) {
     let dailyBookings = this.allBookings.filter(booking => booking.date === date);
@@ -45,7 +40,6 @@ class BookingRepository {
     let availableRooms = rooms.length - dailyBookings.length;
     domUpdates.displayAvailableRooms(availableRooms);
     return availableRooms;
-    //add relevant test
   }
 
   findAvailableRoomsByDateAndType(rooms, type, date) {
@@ -73,7 +67,6 @@ class BookingRepository {
   deleteBooking(id, event) {
     let url = `https://fe-apps.herokuapp.com/api/v1/overlook/1904/bookings/bookings/`
     let newID = Number(id);
-    console.log(newID)
     domUpdates.deleteBooking(newID, event);
 
     return fetch(url, {

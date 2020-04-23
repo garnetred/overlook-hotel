@@ -1,6 +1,4 @@
 import domUpdates from './domUpdates';
-import roomTestData from '../data/rooms-test-data'
-import bookingTestData from '../data/bookings-test-data'
 
 
 class User {
@@ -24,7 +22,7 @@ class User {
     if (this.allRooms === 0) {
       return 0;
     }
-    let totalCost = this.allRooms.reduce((total, room) =>{
+    let totalCost = this.allRooms.reduce((total, room) => {
       total += room.costPerNight;
       return Number(total.toFixed(2));
     }, 0)
@@ -37,14 +35,13 @@ class User {
     return this.allBookings;
   }
 
-//needs refactoring to get rid of nested if statement
   findAllRooms(rooms) {
     let bookedRoomNumbers;
     let matchedRooms = [];
     if (this.allBookings.length > 0) {
       bookedRoomNumbers = this.allBookings.filter(booking => booking.roomNumber).map(booking => booking.roomNumber);
       rooms.map(room => {
-        bookedRoomNumbers.forEach(number =>  {
+        bookedRoomNumbers.forEach(number => {
           if (room.number === number) {
             matchedRooms.push(room)
           }
@@ -57,25 +54,20 @@ class User {
 
   findCurrentBookings(date) {
     this.currentBookings = this.allBookings.filter(booking => booking.date === date);
-    console.log('we\'re in current bookings')
     domUpdates.displayCurrentBookings(this.currentBookings);
   }
 
   findPastBookings(date) {
     this.pastBookings = this.allBookings.filter(booking => date > booking.date);
     domUpdates.displayPastBookings(this.pastBookings);
-    console.log('this function is being invoked')
     return this.pastBookings;
   }
 
   findFutureBookings(date) {
     this.futureBookings = this.allBookings.filter(booking => date < booking.date);
     domUpdates.displayFutureBookings(this.futureBookings);
-    // domUpdates.displayCustomerInfo(futureBookings, this.currentBookings);
     return this.futureBookings;
   }
-
 }
-//how do I invoke methods in this class when current user is undefined in main.js? do I delete the class?
 
 export default User;
