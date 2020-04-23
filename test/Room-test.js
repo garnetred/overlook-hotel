@@ -3,26 +3,21 @@ import Room from '../src/Room';
 import User from '../src/User';
 import roomTestData from '../data/rooms-test-data'
 import userTestData from '../data/users-test-data'
-import bookingTestData from '../data/bookings-test-data'
-import domUpdates from '../src/domUpdates'
 
 const expect = chai.expect;
 
 describe('Room', function() {
-  let room1, room2, room3, room4, room5, currentDate, diffDate, finalDate, user1, user2;
+  let room1, room2, room3, currentDate, finalDate, user1, user2;
 
   beforeEach(() => {
 
     room1 = new Room(roomTestData[0]);
     room2 = new Room(roomTestData[1]);
     room3 = new Room(roomTestData[2]);
-    room4 = new Room(roomTestData[3]);
-    room5 = new Room(roomTestData[4]);
     user1 = new User(userTestData[0]);
     user2 = new User(userTestData[1]);
-    currentDate = "2020/02/05"; //any room
-    diffDate = "2020/02/07"; //room 5
-    finalDate = '2020/02/17'; //room 4
+    currentDate = "2020/02/05";
+    finalDate = '2020/02/17';
     chai.spy.on(room1, ['createNewBooking'], () => true);
     chai.spy.on(room2, ['createNewBooking'], () => true);
   });

@@ -2,8 +2,6 @@ import $ from 'jquery';
 
 export let currentUser = null;
 export let foundUser;
-let userID;
-let allUsers = [];
 let allPages;
 export let count = 0;
 
@@ -27,7 +25,7 @@ const domUpdates = {
       return;
     } else if (currentUser !== 'manager') {
       $('.customer-dashboard').removeClass('hide');
-      $('.customer-welcome-message').text(`Welcome, ${currentUser.firstName}`)
+      $('.customer-welcome-message').text(` Welcome to Overlook Hotel, ${currentUser.firstName}`)
     }
   },
 
@@ -35,7 +33,6 @@ const domUpdates = {
     $('.manager-info').append(`
       <p class="revenue">Total Revenue: <span>$${revenue}</span></p>
       `)
-    //finish this method
   },
 
   displayAvailableRooms(rooms) {
@@ -46,21 +43,34 @@ const domUpdates = {
 
   displayRoomsAvailableForBooking(rooms) {
     $('.search-results-message').text('Search Results');
-    //must iterate through all rooms and display a message, so it'll have to be generic.
     if (rooms.length === 0) {
       $('.booking-search-results').html(`<p>Unfortunately, there are no rooms available for the selected date and room type. Please try a different search. If you need further assistance, you are welcome to contact us at 1-800-555-5555.</p>`)
     } else {
       $('.booking-search-results').html('');
       rooms.forEach(room => {
+        let type = room.roomType.split(' ').join('-');
+        let beds = 'beds';
+        let bidetInfo;
+        if (room.numBeds === 1) {
+          beds = 'bed'
+        }
+        if (room.bidet === true) {
+          bidetInfo = 'This room also comes equipped with a bidet.'
+        } else {
+          bidetInfo = '';
+        }
         $('.booking-search-results').append(`<section class="individual-search-results">
         <figure>
-        ...
+        <img alt="a thumbnail image of a ${room.roomType} in a hotel" src="./images/${type}.jpg">
         </figure>
         <article>
-        <p>This lovely ${room.roomType} offers ${room.numBeds} beds and a stunning ocean view when you just have to get away. Located at ${room.number}, it is a quiet space tucked away on the first floor.</p>
-        <p class="booking-price">$${room.costPerNight} per night</p>
+        <p>Room #${room.number} is a ${room.roomType} that offers ${room.numBeds} ${room.bedSize} ${beds} and a stunning ocean view when you just have to get away.  It is a quiet space tucked away on the first floor.${bidetInfo}</p>
+        <p class="booking-price">$${room.costPerNight}/night</p>
+        </article>
         <button class="customer-book-room-button" id=${room.number}>Book</button>
         </section>`);
+
+
       })
     }
   },
@@ -72,11 +82,10 @@ const domUpdates = {
       `)
   },
 
-  //separate into three separate functions
   displayTotal(cost) {
     $('.customer-total').html(`<p>You have spent</p>
       <span> $${cost} </span>
-      <p> in bookings </p>`)
+      <p> at Overlook Hotel </p>`)
   },
 
   displayPastBookings(past) {
@@ -84,16 +93,16 @@ const domUpdates = {
       past.forEach(booking => {
         $('.past-bookings-info').append(`<section class="individual-booking-info">
                 <p>Date: ${booking.date}</p>
-                <p>Cost:</p>
-                <p>Something:</p>`)
+                <p>Room Number:${booking.roomNumber}</p>`)
       })
     }
   },
-  //
+
   displayFutureBookings(future) {
     console.log(currentUser)
     if (future !== 'undefined' && $('.individual-booking-info')) {
       future.forEach(booking => {
+
         $('.upcoming-bookings-info').append(`<section class="individual-booking-info">
                 <p>Date: ${booking.date}</p>
                 <p>Room Number: ${booking.roomNumber}</p>
@@ -114,21 +123,6 @@ const domUpdates = {
     }
   },
 
-  // if (currentBookings !== 'undefined') {
-  //   currenBookings.forEach(booking => {
-  //     $('.upcoming-bookings-info').append(`<section class="individual-booking-info">
-  //       <p>Date: ${booking.date}</p>
-  //       <p>Cost:</p>
-  //       <p>Something:</p>`)
-  //   })
-  // }
-
-  // $('.individual-booking-info').append(`<p>Date:</p>
-  // <p>Cost:</p>
-  // <p>Something:</p>`)
-
-
-
   displaySearchPage() {
     allPages.forEach(page => {
       $(page).addClass('hide')
@@ -137,12 +131,11 @@ const domUpdates = {
     $('.navbar').removeClass('hide')
   },
 
-  displayGuestsByNameAndDate(user, date) {
+  displayGuestsByNameAndDate(user) {
     foundUser = user;
     $('.manager-dashboard').addClass('hide');
     $('.manager-customer-search').removeClass('hide');
     $('.search-guests-input').val('');
-    // $('.found-user-name').text('');
     $('.found-user-name').text(`${user.name}`)
     $('.customer-total-info').html('');
     $('.customer-total-info').append(`
@@ -160,29 +153,6 @@ const domUpdates = {
         </section>
           `)
     })
-
-    // $('.current-bookings-info').html('');
-    // user.currentBookings.forEach(booking => {
-    //   $('.upcoming-bookings-info').append(`
-    //     <section class="individual-booking-info">
-    //     <p>Date: ${booking.date}</p>
-    //     <p>Room Number: ${booking.roomNumber}</p>
-    //     <button class="delete-booking-button" id=${booking.id}>Cancel</button>
-    //     </section>
-    //       `)
-    // })
-    // $('.delete-booking-button').click(function() {
-    //   deleteBookingRequest();
-    // })
-
-    // $('.past-bookings-info').html('');
-    // user.pastBookings.forEach(booking => {
-    //   $('.past-bookings-info').append(`<section class="individual-booking-info">
-    //               <p>Date: ${booking.date}</p>
-    //               <p>Room Number: ${booking.roomNumber}</p>
-    //             </section>`)
-    //   console.log('hi');
-    // })
   },
 
   deleteBooking(id, event) {
@@ -191,7 +161,6 @@ const domUpdates = {
 
   login(userRepository) {
     if ($('#username').val() === 'manager' && $('#password').val() === 'overlook2020') {
-      userID = null;
       currentUser = 'manager';
       domUpdates.displayHomePage();
       return;
@@ -200,7 +169,6 @@ const domUpdates = {
     userRepository.forEach(user => {
       if (user.username === $('#username').val() && $('#password').val() === 'overlook2020') {
         currentUser = user;
-        userID = user.id;
         domUpdates.displayHomePage();
         return;
       } else {
@@ -228,7 +196,7 @@ const domUpdates = {
     if (currentUser !== 'manager') {
       $('.successful-booking-message').append(`<p>Room #${roomNumber} has been booked successfully for ${date}.`)
     } else {
-    $('.successful-booking-message').append(`<p>Room #${roomNumber} has been booked successfully for ${user.name} for ${date}.`)
+      $('.successful-booking-message').append(`<p>Room #${roomNumber} has been booked successfully for ${user.name} for ${date}.`)
     }
     foundUser = null;
     setTimeout(domUpdates.displayHomePage, 3000);

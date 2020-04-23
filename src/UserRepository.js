@@ -1,5 +1,4 @@
 import domUpdates from './domUpdates'
-import User from './User'
 
 
 class UserRepository {
@@ -13,9 +12,9 @@ class UserRepository {
     foundUser.findPastBookings(date);
     foundUser.findCurrentBookings(date)
     foundUser.findFutureBookings(date);
-    setTimeout(domUpdates.displayGuestsByNameAndDate(foundUser, date), 5000);
+    setTimeout(domUpdates.displayGuestsByNameAndDate(foundUser), 5000);
     return foundUser;
-}
+  }
 
 }
 

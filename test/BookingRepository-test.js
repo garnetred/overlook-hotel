@@ -9,7 +9,6 @@ chai.use(spies);
 
 describe('BookingRepository', function() {
   let booking, booking2, currentDate, secondDate;
-  //create variable for date
 
   beforeEach(() => {
     booking = new BookingRepository(bookingTestData);

@@ -184,13 +184,12 @@ describe('User', function() {
     }])
 
     expect(user4.findPastBookings(currentDate)).to.deep.equal([{
-        id: "5fwrgu4i7k55hl6vc",
-        userID: 4,
-        date: "2020/01/18",
-        roomNumber: 18,
-        roomServiceCharges: []
-      }
-    ])
+      id: "5fwrgu4i7k55hl6vc",
+      userID: 4,
+      date: "2020/01/18",
+      roomNumber: 18,
+      roomServiceCharges: []
+    }])
 
     expect(domUpdates.displayPastBookings).to.have.been.called(2);
   })
@@ -198,8 +197,7 @@ describe('User', function() {
   it('should be able to find all future bookings', function() {
     user3.findAllBookings(bookingTestData)
     user4.findAllBookings(bookingTestData)
-    expect(user3.findFutureBookings(currentDate)).to.deep.equal([
-      {
+    expect(user3.findFutureBookings(currentDate)).to.deep.equal([{
         id: "5fwrgu4i7k55hl88k",
         userID: 3,
         date: "2020/02/07",
@@ -236,7 +234,7 @@ describe('User', function() {
         roomServiceCharges: []
       }
     ])
-      expect(domUpdates.displayFutureBookings).to.have.been.called(2);
+    expect(domUpdates.displayFutureBookings).to.have.been.called(2);
   })
 
 
