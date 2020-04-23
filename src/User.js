@@ -57,14 +57,12 @@ class User {
 
   findCurrentBookings(date) {
     this.currentBookings = this.allBookings.filter(booking => booking.date === date);
-    console.log('we\'re in current bookings')
     domUpdates.displayCurrentBookings(this.currentBookings);
   }
 
   findPastBookings(date) {
     this.pastBookings = this.allBookings.filter(booking => date > booking.date);
     domUpdates.displayPastBookings(this.pastBookings);
-    console.log('this function is being invoked')
     return this.pastBookings;
   }
 

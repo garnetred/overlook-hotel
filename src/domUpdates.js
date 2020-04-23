@@ -186,11 +186,7 @@ const domUpdates = {
   },
 
   deleteBooking(id, event) {
-    //should only work if current user's username is "manager"
-    console.log(event.target)
-    // console.log(.parent())
     $(event.target).parent().addClass('hide');
-    //how do I delete this though?
   },
 
   login(userRepository) {

@@ -3,7 +3,7 @@
 <meta charset="utf-8">
 <head>
   <title>Overlook Hotel</title>
-  <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+  <link rel="shortcut icon" href="./images/favicon.ico" type="image/x-icon">
 </head>
 
 <body>
@@ -20,13 +20,13 @@
   </section>
   <nav class="navbar hide">
     <ul>
-      <li><button type="button" id="booking-search-page" class="booking">
+      <li><button type="button" id="booking-search-page" class="booking" tabindex="1">
         Reserve A Room
       </button></li>
-      <li>
+      <li tabindex="2">
         <h1 class="account-text">My Account</h1>
       </li>
-      <li>
+      <li tabindex="3">
         <h1 class="logout-text">Logout</h1>
       </li>
     </ul>
@@ -128,13 +128,13 @@
           </section>
           <section class="booking-checkbox-options">
             <p>Room Types</p>
-            <label for="junior-suite"><input type="checkbox" id="junior-suite" name="junior-suite" class="room-type">Junior Suite</label>
+            <label for="junior-suite"><input type="checkbox" id="junior-suite" name="junior-suite" class="room-type" tabindex="0">Junior Suite</label>
 
-            <label for="residential-suite"><input type="checkbox" id="residential-suite" name="residential-suite" class="room-type">Residential Suite</label>
+            <label for="residential-suite"><input type="checkbox" id="residential-suite" name="residential-suite" class="room-type" tabindex="0">Residential Suite</label>
 
-            <label for="suite"><input type="checkbox" id="suite" name="suite" class="room-type">Suite</label>
+            <label for="suite"><input type="checkbox" id="suite" name="suite" class="room-type" tabindex="0">Suite</label>
 
-            <label for="single-room"><input type="checkbox" id="single-room" name="single-room" class="room-type">Single Room</label>
+            <label for="single-room"><input type="checkbox" id="single-room" name="single-room" class="room-type" tabindex="0">Single Room</label>
             <button type="submit" id="booking-search-button">Search</button>
         </form>
       </section>

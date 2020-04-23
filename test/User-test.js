@@ -21,7 +21,13 @@ describe('User', function() {
     user4 = new User(userTestData[3]);
     user6 = new User(userTestData[5])
     currentDate = "2020/02/05";
+
+    chai.spy.on(domUpdates, ['displayTotal', 'displayCurrentBookings', 'displayFutureBookings', 'displayPastBookings'], () => true);
   });
+
+  afterEach(() => {
+    chai.spy.restore(domUpdates);
+  })
 
   it('should be an instance of User', function() {
     expect(user1).to.be.an.instanceof(User);
@@ -70,11 +76,22 @@ describe('User', function() {
   })
 
   it('should calculate total spent on all reservations', function() {
+    user1.findAllBookings(bookingTestData);
+    user1.findAllRooms(roomTestData);
+    user2.findAllBookings(bookingTestData);
+    user2.findAllRooms(roomTestData);
+    user3.findAllBookings(bookingTestData);
+    user3.findAllRooms(roomTestData);
+    user6.findAllBookings(bookingTestData);
+    user6.findAllRooms(roomTestData);
+
 
     expect(user1.calculateTotal()).to.equal(512.26);
     expect(user2.calculateTotal()).to.equal(1132.34);
-    expect(user3.calculateTotal()).to.equal(1063.68);
+    expect(user3.calculateTotal()).to.equal(1541.06);
     expect(user6.calculateTotal()).to.equal(0);
+
+    expect(domUpdates.displayTotal).to.have.been.called(4);
   })
 
   it('should be able to find all bookings', function() {
@@ -101,7 +118,8 @@ describe('User', function() {
   })
 
   it('should be able to find all rooms in which a user has stayed', function() {
-    user1.findAllRooms();
+    user1.findAllBookings(bookingTestData)
+    user1.findAllRooms(roomTestData);
 
     expect(user1.allRooms).to.deep.equal([{
         number: 5,
@@ -123,6 +141,8 @@ describe('User', function() {
   })
 
   it('should be able to find all current bookings for today\'s date', function() {
+    user1.findAllBookings(bookingTestData)
+    user4.findAllBookings(bookingTestData)
     user1.findCurrentBookings(currentDate);
     user4.findCurrentBookings(currentDate);
 
@@ -149,9 +169,12 @@ describe('User', function() {
         roomServiceCharges: []
       }
     ])
+    expect(domUpdates.displayCurrentBookings).to.have.been.called(2)
   })
 
   it('should be able to find all past bookings', function() {
+    user1.findAllBookings(bookingTestData)
+    user4.findAllBookings(bookingTestData)
     expect(user1.findPastBookings(currentDate)).to.deep.equal([{
       id: "5fwrgu4i7k55hl7cu",
       userID: 1,
@@ -168,10 +191,21 @@ describe('User', function() {
         roomServiceCharges: []
       }
     ])
+
+    expect(domUpdates.displayPastBookings).to.have.been.called(2);
   })
 
   it('should be able to find all future bookings', function() {
-    expect(user3.findFutureBookings(currentDate)).to.deep.equal([  {
+    user3.findAllBookings(bookingTestData)
+    user4.findAllBookings(bookingTestData)
+    expect(user3.findFutureBookings(currentDate)).to.deep.equal([
+      {
+        id: "5fwrgu4i7k55hl88k",
+        userID: 3,
+        date: "2020/02/07",
+        roomNumber: 2,
+        roomServiceCharges: []
+      }, {
         id: "5fwrgu4i7k55hl6v3",
         userID: 3,
         date: "2020/02/07",
@@ -202,6 +236,7 @@ describe('User', function() {
         roomServiceCharges: []
       }
     ])
+      expect(domUpdates.displayFutureBookings).to.have.been.called(2);
   })
 
 

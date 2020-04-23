@@ -116,7 +116,7 @@ const bookingTestData = [{
     date: "2020/02/07",
     roomNumber: 24,
     roomServiceCharges: []
-  },
+  }
 ]
 
 export default bookingTestData;
