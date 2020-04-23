@@ -1,18 +1,23 @@
 import $ from 'jquery';
 
 export let currentUser = null;
+export let foundUser;
 let userID;
 let allUsers = [];
+let allPages;
 export let count = 0;
 
 const domUpdates = {
+  displayCorrectPage() {
+    allPages = $('body').children().toArray()
+  },
 
   displayHomePage() {
     count++;
-    let allPages = $('body').children().toArray();
     allPages.forEach(page => {
       $(page).addClass('hide')
     })
+    $('.successful-booking-message').addClass('hide');
     $('.navbar').removeClass('hide');
     console.log(currentUser)
     console.log('displaying home page');
@@ -86,6 +91,7 @@ const domUpdates = {
   },
   //
   displayFutureBookings(future) {
+    console.log(currentUser)
     if (future !== 'undefined' && $('.individual-booking-info')) {
       future.forEach(booking => {
         $('.upcoming-bookings-info').append(`<section class="individual-booking-info">
@@ -96,8 +102,16 @@ const domUpdates = {
     }
   },
 
-  displayCurrentBookings() {
-
+  displayCurrentBookings(current) {
+    console.log(current, 'current status')
+    if (current !== 'undefined' && $('.individual-booking-info')) {
+      current.forEach(booking => {
+        $('.current-bookings-info').append(`<section class="individual-booking-info">
+                <p>Date: ${booking.date}</p>
+                <p>Room Number: ${booking.roomNumber}</p>
+                </section>`)
+      })
+    }
   },
 
   // if (currentBookings !== 'undefined') {
@@ -113,12 +127,9 @@ const domUpdates = {
   // <p>Cost:</p>
   // <p>Something:</p>`)
 
-  filterRoomByType() {
-    //should filter room in the customer search page by type
-  },
+
 
   displaySearchPage() {
-    let allPages = $('body').children().toArray()
     allPages.forEach(page => {
       $(page).addClass('hide')
     })
@@ -127,6 +138,7 @@ const domUpdates = {
   },
 
   displayGuestsByNameAndDate(user, date) {
+    foundUser = user;
     $('.manager-dashboard').addClass('hide');
     $('.manager-customer-search').removeClass('hide');
     $('.search-guests-input').val('');
@@ -148,18 +160,29 @@ const domUpdates = {
         </section>
           `)
     })
+
+    // $('.current-bookings-info').html('');
+    // user.currentBookings.forEach(booking => {
+    //   $('.upcoming-bookings-info').append(`
+    //     <section class="individual-booking-info">
+    //     <p>Date: ${booking.date}</p>
+    //     <p>Room Number: ${booking.roomNumber}</p>
+    //     <button class="delete-booking-button" id=${booking.id}>Cancel</button>
+    //     </section>
+    //       `)
+    // })
     // $('.delete-booking-button').click(function() {
     //   deleteBookingRequest();
     // })
 
-    $('.past-bookings-info').html('');
-    user.pastBookings.forEach(booking => {
-      $('.past-bookings-info').append(`<section class="individual-booking-info">
-                  <p>Date: ${booking.date}</p>
-                  <p>Room Number: ${booking.roomNumber}</p>
-                </section>`)
-      console.log('hi');
-    })
+    // $('.past-bookings-info').html('');
+    // user.pastBookings.forEach(booking => {
+    //   $('.past-bookings-info').append(`<section class="individual-booking-info">
+    //               <p>Date: ${booking.date}</p>
+    //               <p>Room Number: ${booking.roomNumber}</p>
+    //             </section>`)
+    //   console.log('hi');
+    // })
   },
 
   deleteBooking(id, event) {
@@ -192,16 +215,27 @@ const domUpdates = {
 
   logout() {
     currentUser = null;
-    console.log(currentUser)
-    let allPages = $('body').children().toArray()
     allPages.forEach(page => {
       $(page).addClass('hide')
     });
     $('.login-page').removeClass('hide');
   },
 
-  addBookingForSpecifiedUser() {
-    //should only work if username is "manager"
+  displaySuccessfulBookingMesssage(user, date, roomNumber) {
+    allPages.forEach(page => {
+      $(page).addClass('hide')
+    })
+    $('.successful-booking-message').html('');
+    $('.successful-booking-info').removeClass('hide');
+    $('.successful-booking-info').addClass('flex');
+    $('.successful-booking-message').removeClass('hide');
+    if (currentUser !== 'manager') {
+      $('.successful-booking-message').append(`<p>Room #${roomNumber} has been booked successfully for ${date}.`)
+    } else {
+    $('.successful-booking-message').append(`<p>Room #${roomNumber} has been booked successfully for ${user.name} for ${date}.`)
+    }
+    foundUser = null;
+    setTimeout(domUpdates.displayHomePage, 3000);
   }
 
 }

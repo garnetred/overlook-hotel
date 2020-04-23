@@ -142,12 +142,12 @@ ul {
 }
 
 main {
-  .past-bookings, .upcoming-bookings {
+  .past-bookings, .upcoming-bookings, .current-bookings {
     color: $white;
     margin-left: 5%;
   }
 
-  .past-bookings-info, .upcoming-bookings-info {
+  .past-bookings-info, .upcoming-bookings-info, .current-bookings-info {
     // background-color: $white;
     margin-left: 5%;
     width: 89%;
@@ -474,4 +474,25 @@ nav {
     font-size: $large-font-size;
     height: 50%;
   }
+}
+
+/*successful booking message*/
+
+.successful-booking-info {
+  // display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.successful-booking-message {
+  background-color: #B5DCB5;
+  height: 50%;
+  width: 60%;
+  text-align: center;
+  font-size: 36px;
+  border-radius: $slight-curve;
+}
+.flex {
+  display: flex;
 }

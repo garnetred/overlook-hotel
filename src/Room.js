@@ -32,7 +32,7 @@ class Room {
         },
         body: JSON.stringify(bookingInfo),
       }).then(response => response.json)
-      .then(data => console.log('Success', data))
+      .then(data => domUpdates.displaySuccessfulBookingMesssage(user, date, this.number))
       .catch(err => console.error(err))
   }
 

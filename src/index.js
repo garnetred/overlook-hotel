@@ -23,6 +23,8 @@ let bookingRepository;
 let currentDate = "2020/02/05";
 import { currentUser } from './domUpdates.js'
 import { count } from './domUpdates.js'
+import { foundUser } from './domUpdates.js'
+
 //dropdown
 // let currentUser;
 console.log('The code is running.');
@@ -34,6 +36,7 @@ function getData() {
       fetch('https://fe-apps.herokuapp.com/api/v1/overlook/1904/bookings/bookings').then(response => response.json()),
     ]).then(data => instantiateData(data[0].users, data[1].rooms, data[2].bookings))
     .then(data => findAllRoomsAndBookingsPerUser())
+    .then(data => domUpdates.displayCorrectPage())
     .catch(err => console.error(err));
 }
 
@@ -83,7 +86,8 @@ export function deleteBookingRequest() {
       currentUser.calculateTotal();
       currentUser.findFutureBookings(currentDate);
       currentUser.findPastBookings(currentDate);
-    } else {
+      currentUser.findCurrentBookings(currentDate);
+    } else if (currentUser === 'manager'){
       bookingRepository.findBookedRoomPercentagePerDay(allRooms, currentDate);
       bookingRepository.calculateDailyRevenue(currentDate, allRooms);
       bookingRepository.findAllAvailableRooms(allRooms, currentDate);
@@ -130,10 +134,16 @@ $('body').click(function(event) {
   if ($(event.target).hasClass('delete-booking-button')) {
     bookingRepository.deleteBooking(event.target.id, event);
     console.log(event.target.id)
-  } else if ($(event.target).hasClass('customer-book-room-button')) {
+  } else if ($(event.target).hasClass('customer-book-room-button') && currentUser !== 'manager') {
     let currentRoom =
     allRooms.find(room => room.number === Number(event.target.id))
     currentRoom.createNewBooking(currentUser, $('.date').val());
+  } else if ($(event.target).hasClass('customer-book-room-button') && currentUser == 'manager') {
+    let currentRoom =
+    allRooms.find(room => room.number === Number(event.target.id))
+    currentRoom.createNewBooking(foundUser, $('.date').val());
+  }else if ($(event.target).hasClass('manager-book-room')) {
+    domUpdates.displaySearchPage();
   }
 })
 

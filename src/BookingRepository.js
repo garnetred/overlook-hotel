@@ -51,7 +51,6 @@ class BookingRepository {
   findAvailableRoomsByDateAndType(rooms, type, date) {
     let availableRoomsByDate = [];
     let availableRoomsByDateAndType = [];
-    let availableBookings = [];
     let bookedRoomNumbers = this.allBookings.filter(booking => booking.date === date).map(booking => booking.roomNumber);
 
     let allRoomNumbers = rooms.map(room => room.number);
