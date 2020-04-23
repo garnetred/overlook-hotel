@@ -77,7 +77,6 @@ function findAllRoomsAndBookingsPerUser() {
 
 
 $('.login-form').submit(function(event) {
-  console.log(currentDate);
   event.preventDefault();
   domUpdates.login(userRepository.allUsers)
   if (currentUser !== 'manager') {

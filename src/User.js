@@ -58,7 +58,6 @@ class User {
     this.currentBookings = this.allBookings.filter(booking => {
       return moment(booking.date).format('YYYYMMDD') === moment(date).format('YYYYMMDD');
     });
-    console.log(this.currentBookings);
     domUpdates.displayCurrentBookings(this.currentBookings);
   }
 
@@ -86,7 +85,6 @@ class User {
   })
 
     domUpdates.displayFutureBookings(this.futureBookings);
-    console.log(this.futureBookings);
     return this.futureBookings;
   }
 }
