@@ -13,12 +13,15 @@ class Room {
 
   //could use booking data here as object literal without passing it in as a parameter
   createNewBooking(user, date) {
-    console.log(date);
-    console.log(this);
+    console.log('id', user.id);
+
+    console.log('num', this.number);
     let url = 'https://fe-apps.herokuapp.com/api/v1/overlook/1904/bookings/bookings';
+    let newDate = date.split('-').join('/');
+    console.log(newDate);
     let bookingInfo = {
       'userID': user.id,
-      'date': date,
+      'date': newDate,
       'roomNumber': this.number
     }
 
@@ -29,7 +32,7 @@ class Room {
         },
         body: JSON.stringify(bookingInfo),
       }).then(response => response.json)
-      .then(data => console.log(data))
+      .then(data => domUpdates.displaySuccessfulBookingMesssage(user, date, this.number))
       .catch(err => console.error(err))
   }
 

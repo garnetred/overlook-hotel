@@ -142,12 +142,12 @@ ul {
 }
 
 main {
-  .past-bookings, .upcoming-bookings {
+  .past-bookings, .upcoming-bookings, .current-bookings {
     color: $white;
     margin-left: 5%;
   }
 
-  .past-bookings-info, .upcoming-bookings-info {
+  .past-bookings-info, .upcoming-bookings-info, .current-bookings-info {
     // background-color: $white;
     margin-left: 5%;
     width: 89%;
@@ -269,10 +269,12 @@ p {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  height: 15%;
+  height: 11%;
+  align-items: center;
+  margin: 2%;
 
   h3 {
-    margin-left: 5%;
+    margin: 0 0 0 5%;
   }
 
   input {
@@ -280,17 +282,11 @@ p {
     border: 2px solid #7A7979;
     border-radius: 10px;
     font-style: italic;
-    margin: 0;
-    height: 60%;
-    float: right;
   }
 
   .manager-search-guests-button {
-    // display: inline;
-    height: 100%;
-    width: 8%;
     border-radius: 10px;
-    margin-left: 2%;
+    margin-right: 5%;
     background-color: #467DCF;
     color: $white;
     font-weight: bold;
@@ -339,7 +335,7 @@ p {
     width: 80%;
     height: 30%;
     background-color: $white;
-    margin-left: 5%;
+    margin: 0 0 5% 5%;
     position: relative;
 
     p {
@@ -375,7 +371,6 @@ nav {
 }
 
 .booking-search-filter {
-  background-color: #C4C4C4;
   border-radius: $slight-curve;
   width: 50%;
   flex-direction: row;
@@ -384,11 +379,12 @@ nav {
 #booking-search-form {
   display: flex;
   flex-direction: row;
-  margin: 5%;
-  // label
-  // & input[type="date"] {
-  //   float:left;
-  // }
+  margin: 0;
+  background-color: #C4C4C4;
+  border-radius: $slight-curve;
+  padding: 20px;
+  width: 90%;
+
   .booking-checkbox-options {
     display: flex;
     flex-direction: column;
@@ -440,33 +436,27 @@ nav {
 .individual-search-results {
   display: flex;
   flex-direction: row;
-  height: 70%;
-  width: 100%;
-  margin-left: 0;
+  margin: 0 0 5% 0;
   background: #467DCF;
   border-radius: $slight-curve;
   position: relative;
+  padding: 10px;
 
   figure {
     margin: 5%;
     background-color: white;
-    height: 50%;
     width: 20%;
   }
 
   article {
-    display: flex;
-    align-items: center;
+
     background-color: white;
     width: 60%;
     height: 50%;
     margin: 5%;
-    font-size: $small-font-size;
-    // p {
-    //   background-color: white;
-    //   width: 50%;
-    //   display: inline-block;
-    // }
+    font-size: 16px;
+    border-radius: 10px;
+    padding: 20px;
   }
 
   button {
@@ -476,12 +466,33 @@ nav {
     font-weight: bold;
     font-size: $large-font-size;
     position: absolute;
-    bottom: 5px;
+    bottom: 0;
     right: 5px;
   }
 
   .booking-price {
-    font-size: $small-font-size;
+    font-size: $large-font-size;
     height: 50%;
   }
+}
+
+/*successful booking message*/
+
+.successful-booking-info {
+  // display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.successful-booking-message {
+  background-color: #B5DCB5;
+  height: 50%;
+  width: 60%;
+  text-align: center;
+  font-size: 36px;
+  border-radius: $slight-curve;
+}
+.flex {
+  display: flex;
 }

@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en-US">
 <meta charset="utf-8">
-
 <head>
   <title>Overlook Hotel</title>
   <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
@@ -36,6 +35,9 @@
       <h3 class="customer-welcome-message"></h3>
       <section class="customer-dashboard-container">
         <main class="customer-all-bookings">
+          <h3 class="current-bookings">Current Bookings</h3>
+          <section class="current-bookings-info">
+          </section>
           <h3 class="upcoming-bookings">Upcoming Bookings</h3>
           <section class="upcoming-bookings-info">
           </section>
@@ -88,14 +90,9 @@
           <p>at Overlook Hotel</p> -->
         </aside>
         <main class="customer-all-bookings">
-          <!-- <main class="customer-all-bookings">
-            <h3 class="upcoming-bookings">Upcoming Bookings</h3>
-            <section class="upcoming-bookings-info">
-            </section>
-            <h3 class="past-bookings">Past Bookings</h3>
-            <section class="past-bookings-info">
-            </section>
-          </main> -->
+          <h3 class="current-bookings">Current Bookings</h3>
+          <section class="current-bookings-info">
+          </section>
 
           <h3 class="upcoming-bookings">Upcoming Bookings</h3>
           <section class="upcoming-bookings-info">
@@ -131,12 +128,13 @@
           </section>
           <section class="booking-checkbox-options">
             <p>Room Types</p>
-            <label for="junior-suite"><input type="checkbox" id="junior-suite" name="junior-suite">Junior Suite </label>
+            <label for="junior-suite"><input type="checkbox" id="junior-suite" name="junior-suite" class="room-type">Junior Suite</label>
 
-            <label for="residential-suite"><input type="checkbox" id="residential-suite" name="residential-suite">Residential Suite</label>
-            <label for="suite"><input type="checkbox" id="suite" name="suite">Suite</label>
+            <label for="residential-suite"><input type="checkbox" id="residential-suite" name="residential-suite" class="room-type">Residential Suite</label>
 
-            <label for="single-room"><input type="checkbox" id="single-room" name="single-room">Single Room</label>
+            <label for="suite"><input type="checkbox" id="suite" name="suite" class="room-type">Suite</label>
+
+            <label for="single-room"><input type="checkbox" id="single-room" name="single-room" class="room-type">Single Room</label>
             <button type="submit" id="booking-search-button">Search</button>
         </form>
       </section>
@@ -157,9 +155,11 @@
       <!-- </section> -->
   </section>
   </main>
+</section>
+<section class="successful-booking-info hide">
+  <section class="successful-booking-message hide">
   </section>
-
-
+</section>
 
   <!-- Do not include the index.js or main.bundle.js file here - it is done automatically by the webpack server -->
 </body>
