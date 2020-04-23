@@ -84,7 +84,6 @@ $('.login-form').submit(function(event) {
   }
 });
 $('.account-text').click(function() {
-  console.log(count);
   if (currentUser === 'manager' && count < 1) {
     bookingRepository.findBookedRoomPercentagePerDay(allRooms, currentDate);
     bookingRepository.calculateDailyRevenue(currentDate, allRooms);
