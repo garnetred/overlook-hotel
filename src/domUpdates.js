@@ -17,8 +17,6 @@ const domUpdates = {
     })
     $('.successful-booking-message').addClass('hide');
     $('.navbar').removeClass('hide');
-    console.log(currentUser)
-    console.log('displaying home page');
     if (currentUser === 'manager') {
       $('.manager-dashboard').removeClass('hide');
       $('#booking-search-page').text('View All Rooms')
@@ -99,7 +97,6 @@ const domUpdates = {
   },
 
   displayFutureBookings(future) {
-    console.log(currentUser)
     if (future !== 'undefined' && $('.individual-booking-info')) {
       future.forEach(booking => {
 
@@ -112,7 +109,6 @@ const domUpdates = {
   },
 
   displayCurrentBookings(current) {
-    console.log(current, 'current status')
     if (current !== 'undefined' && $('.individual-booking-info')) {
       current.forEach(booking => {
         $('.current-bookings-info').append(`<section class="individual-booking-info">
@@ -171,8 +167,6 @@ const domUpdates = {
         currentUser = user;
         domUpdates.displayHomePage();
         return;
-      } else {
-        console.log('incorrect login info')
       }
     })
   },
