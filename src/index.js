@@ -56,7 +56,7 @@ function instantiateData(users, rooms, bookings) {
     return user;
   })
   rooms.forEach(place => {
-
+ 
     room = new Room(place);
     allRooms.push(room);
     return rooms;
