@@ -1,4 +1,6 @@
 import domUpdates from './domUpdates';
+import * as moment from 'moment';
+
 
 
 class User {
@@ -53,18 +55,35 @@ class User {
   }
 
   findCurrentBookings(date) {
-    this.currentBookings = this.allBookings.filter(booking => booking.date === date);
+    this.currentBookings = this.allBookings.filter(booking => {
+      return moment(booking.date).format('YYYYMMDD') === moment(date).format('YYYYMMDD');
+    });
     domUpdates.displayCurrentBookings(this.currentBookings);
   }
 
   findPastBookings(date) {
-    this.pastBookings = this.allBookings.filter(booking => date > booking.date);
+    let sortedBookings = this.allBookings.sort((a, b) => {
+        return moment(a.date).format('YYYYMMDD') - moment(b.date).format('YYYYMMDD')
+      });
+
+
+    this.pastBookings = sortedBookings.filter(booking => {
+      return moment(booking.date).format('YYYYMMDD') < moment(date).format('YYYYMMDD');
+    });
     domUpdates.displayPastBookings(this.pastBookings);
     return this.pastBookings;
   }
 
   findFutureBookings(date) {
-    this.futureBookings = this.allBookings.filter(booking => date < booking.date);
+  let sortedBookings = this.allBookings.sort((a, b) => {
+      return moment(a.date).format('YYYYMMDD') - moment(b.date).format('YYYYMMDD')
+    })
+
+    this.futureBookings = sortedBookings.filter(booking => {
+    return moment(booking.date).format('YYYYMMDD') >
+    moment(date).format('YYYYMMDD');
+  })
+
     domUpdates.displayFutureBookings(this.futureBookings);
     return this.futureBookings;
   }
