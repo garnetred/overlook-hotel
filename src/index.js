@@ -56,7 +56,7 @@ function instantiateData(users, rooms, bookings) {
     return user;
   })
   rooms.forEach(place => {
- 
+
     room = new Room(place);
     allRooms.push(room);
     return rooms;
@@ -127,11 +127,11 @@ $('body').click(function(event) {
   } else if ($(event.target).hasClass('customer-book-room-button') && currentUser !== 'manager') {
     let currentRoom =
       allRooms.find(room => room.number === Number(event.target.id))
-    currentRoom.createNewBooking(currentUser, $('.date').val());
+    currentRoom.createNewBooking(currentUser, $('.date').val(), currentDate);
   } else if ($(event.target).hasClass('customer-book-room-button') && currentUser === 'manager') {
     let currentRoom =
       allRooms.find(room => room.number === Number(event.target.id))
-    currentRoom.createNewBooking(foundUser, $('.date').val());
+    currentRoom.createNewBooking(foundUser, $('.date').val(), currentDate);
   } else if ($(event.target).hasClass('manager-book-room')) {
     domUpdates.displaySearchPage();
   }

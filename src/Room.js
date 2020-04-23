@@ -1,4 +1,5 @@
 import domUpdates from './domUpdates'
+import * as moment from 'moment';
 
 class Room {
   constructor(roomData) {
@@ -10,16 +11,20 @@ class Room {
     this.costPerNight = roomData.costPerNight;
   }
 
-  createNewBooking(user, date) {
+  createNewBooking(user, date, todayDate) {
     let url = 'https://fe-apps.herokuapp.com/api/v1/overlook/1904/bookings/bookings';
+    let inputDate = moment(date).format('YYYYMMDD');
+    let nowDate = moment(todayDate).format('YYYYMMDD');
     let newDate = date.split('-').join('/');
     let bookingInfo = {
       'userID': user.id,
       'date': newDate,
       'roomNumber': this.number
     }
-
-    fetch(url, {
+    if (inputDate < nowDate) {
+      return;
+    } else {
+      fetch(url, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -28,6 +33,8 @@ class Room {
       }).then(response => response.json)
       .then(data => domUpdates.displaySuccessfulBookingMesssage(user, date, this.number))
       .catch(err => console.error(err))
+
+    }
   }
 
 }
