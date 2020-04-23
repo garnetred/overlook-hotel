@@ -55,10 +55,6 @@ function instantiateData(users, rooms, bookings) {
     return rooms;
   })
 
-  // bookings.forEach(booking => {
-  //   return booking = new Booking(booking);
-  // })
-
   bookingRepository = new BookingRepository(bookings);
   userRepository = new UserRepository(allUsers)
 }
@@ -73,7 +69,6 @@ function findAllRoomsAndBookingsPerUser() {
 
 $('.login-form').submit(function(event) {
   event.preventDefault();
-  console.log(userRepository);
   domUpdates.login(userRepository.allUsers)
   if (currentUser !== 'manager') {
     currentUser.findAllBookings(bookingRepository.allBookings);
@@ -89,7 +84,6 @@ $('.login-form').submit(function(event) {
   }
 });
 $('.account-text').click(function() {
-  console.log(count);
   if (currentUser === 'manager' && count < 1) {
     bookingRepository.findBookedRoomPercentagePerDay(allRooms, currentDate);
     bookingRepository.calculateDailyRevenue(currentDate, allRooms);
