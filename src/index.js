@@ -7,8 +7,6 @@ import UserRepository from './UserRepository';
 import Room from './Room';
 import BookingRepository from './BookingRepository';
 import * as moment from 'moment';
-// moment.format();
-
 
 import './images/hotel-background.jpg';
 import './images/junior-suite.jpg';
